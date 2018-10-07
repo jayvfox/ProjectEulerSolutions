@@ -1,0 +1,12 @@
+from setuptools import setup, find_packages
+
+setup(
+    name='project-euler-solutions',
+    version='0.1',
+    packages=find_packages(),
+    license='MIT',
+    description='My solutions to the Project Euler Problems',
+    long_description=open('README.txt').read(),
+    install_requires=['numpy'],
+    url='https://github.com/jayvfox/ProjectEulerSolutions',
+    author='Jay Fox')
