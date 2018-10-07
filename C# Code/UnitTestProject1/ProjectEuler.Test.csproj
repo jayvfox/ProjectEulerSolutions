@@ -10,8 +10,8 @@
     <ProjectGuid>{73A0FA46-3BC7-4CB6-A8BF-A55B0C4A5A56}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTestProject1</RootNamespace>
-    <AssemblyName>UnitTestProject1</AssemblyName>
+    <RootNamespace>ProjectEuler.Test</RootNamespace>
+    <AssemblyName>ProjectEuler.Test</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -71,9 +71,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\EulerProject\EulerProject.csproj">
+    <ProjectReference Include="..\EulerProject\ProjectEuler.csproj">
       <Project>{88d4f200-f761-4aeb-a29c-bca31d7c31bb}</Project>
-      <Name>EulerProject</Name>
+      <Name>ProjectEuler</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

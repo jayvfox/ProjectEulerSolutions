@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace EulerProject
+namespace ProjectEuler
 {
     public class UtilityFunctions
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using Xunit;
 
 
-namespace EulerProject.Test
+namespace ProjectEuler.Test
 {
     public class UnitTests
     {
@@ -25,8 +25,8 @@ namespace EulerProject.Test
             var expected2 = new List<string> { "12", "13", "21", "23", "31", "32" };
 
             //Act
-            var actual1 =UtilityFunctions.GeneratePermutations(input, 3);
-            var actual2 =UtilityFunctions.GeneratePermutations(input, 2);
+            var actual1 = UtilityFunctions.GeneratePermutations(input, 3);
+            var actual2 = UtilityFunctions.GeneratePermutations(input, 2);
             
 
             //Assert

@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics;
 
-namespace EulerProject
+namespace ProjectEuler
 {
     class Program
     {
@@ -9,7 +9,7 @@ namespace EulerProject
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            Console.WriteLine(Problem141.Solution());
+            Console.WriteLine(Problem142.Solution());
             stopwatch.Stop();
             Console.WriteLine($"Solution took {stopwatch.ElapsedMilliseconds} milliseconds.");
             Console.ReadLine();

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 
-namespace EulerProject
+namespace ProjectEuler
 {
     public class Problem130
     {
