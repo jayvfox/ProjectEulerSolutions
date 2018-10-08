@@ -12,7 +12,7 @@ namespace ProjectEuler
         {
             long solution = 0;
 
-            var primes = UtilityFunctions.Sieve(limit+100);
+            var primes = UtilityFunctions.Primes(limit+100);
 
             for (int i=3; true; i++)
             {

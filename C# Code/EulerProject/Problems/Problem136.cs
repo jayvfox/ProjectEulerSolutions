@@ -14,7 +14,7 @@ namespace ProjectEuler
         public static long Solution()
         {
             var exactlyOneSolution = 0;
-            var primes = UtilityFunctions.Sieve(limit);
+            var primes = UtilityFunctions.Primes(limit);
             var index = 0;
             var prime = primes[++index];
 
