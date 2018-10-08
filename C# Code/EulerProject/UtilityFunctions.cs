@@ -44,8 +44,9 @@ namespace ProjectEuler
             return new List<long>(nonSquareFree);
         }
 
-        public static List<long[]> Partition(long n, long[] elementList = null, long[] coefficientList = null, long maxIndex = long.MinValue)
+        public static List<long[]> Partition(long n, long[] elementList = null, long[] coefficientList = null, long maxIndex = -100, int chunks = -100)
         {
+            var dictionaryOfPartitions = new Dictionary<long,Dictionary<int,List<long[]>>>();
             if (elementList == null)
             {
                 elementList = new long[n];
@@ -60,12 +61,25 @@ namespace ProjectEuler
                     coefficientList[i] = i + 1;
             }
 
-            if (maxIndex == long.MinValue)
-                maxIndex = elementList.Length - 1;
+            var maxUsableIndex = 0;
+            for (int i = 1; i < elementList.Length; i++)
+            {
+                if (elementList[i] > n)
+                    break;
+                maxUsableIndex = i;
 
-            var partitions = new List<long[]>();
+            }
+
+            if (maxIndex == -100 || maxIndex >= Math.Min(elementList.Length,maxUsableIndex))
+                maxIndex = maxUsableIndex;
+
             if (n == 0)
                 return new List<long[]> { new long[maxIndex + 1] };
+            if (chunks == 0)
+                return new List<long[]>();
+
+            var partitions = new List<long[]>();
+
             if (maxIndex == 0)
             {
                 if (n % elementList[0] == 0 && Array.IndexOf(coefficientList, n/elementList[0]) != -1)
@@ -73,8 +87,13 @@ namespace ProjectEuler
                 else
                     return new List<long[]>();
             }
-
-            foreach (var partition in Partition(n, elementList, coefficientList, maxIndex - 1))
+            if (!dictionaryOfPartitions.ContainsKey(n) || !dictionaryOfPartitions[n].ContainsKey(chunks))
+            {
+                var chunkDictionary = new Dictionary<int, List<long[]>>();
+                chunkDictionary.Add(chunks, Partition(n, elementList, coefficientList, maxIndex - 1, chunks));
+                dictionaryOfPartitions.Add(n, chunkDictionary);
+            }
+            foreach (var partition in dictionaryOfPartitions[n][chunks])
             {
                 var thisPartition = new long[maxIndex + 1];
                 for (long j = 0; j < maxIndex; j++)
@@ -83,18 +102,31 @@ namespace ProjectEuler
                 }
                 partitions.Add(thisPartition);
             }
-
+            
             for (long coeffIndex = 0; coeffIndex < coefficientList.Length; coeffIndex++)
             {
                 var thisCoefficient = coefficientList[coeffIndex];
                 long smallerN = n - elementList[maxIndex] * thisCoefficient;
+                List<long[]> smallerList;
                 if (smallerN < 0)
                     break;
-                foreach (var partition in Partition(smallerN, elementList, coefficientList, maxIndex-1))
+                if (smallerN == 0)
+                    smallerList = new List<long[]>();
+                else
+                {
+                    if (!dictionaryOfPartitions.ContainsKey(smallerN) || !dictionaryOfPartitions[smallerN].ContainsKey(chunks - 1))
+                    {
+                        var chunkDictionary = new Dictionary<int, List<long[]>>();
+                        chunkDictionary.Add(chunks - 1, Partition(smallerN, elementList, coefficientList, maxIndex - 1, chunks - 1));
+                        dictionaryOfPartitions.Add(smallerN, chunkDictionary);
+                    }
+                    smallerList = dictionaryOfPartitions[smallerN][chunks - 1];
+                }
+                foreach (var partition in smallerList)
                 {
                     var thisPartition = new long[maxIndex + 1];
                     thisPartition[maxIndex] = thisCoefficient;
-                    for (long j = 0; j < maxIndex; j++)
+                    for (long j = 0; j < partition.Length; j++)
                     {
                         thisPartition[j] = partition[j];
                     }
@@ -105,7 +137,7 @@ namespace ProjectEuler
             return partitions;
         }
 
-        public static List<long[]> PartitionIntoPerfectSquares(long n, long[] perfectSquares = null, long maxIndex = 0)
+       public static List<long[]> PartitionIntoPerfectSquares(long n, long[] perfectSquares = null, long maxIndex = 0)
         {
             if (perfectSquares == null)
             {

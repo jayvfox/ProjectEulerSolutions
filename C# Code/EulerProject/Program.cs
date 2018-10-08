@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace ProjectEuler
@@ -7,7 +8,7 @@ namespace ProjectEuler
     {
         static void Main(string[] args)
         {
-            //TimeStuff();
+            TimeStuff();
             var stopwatch = new Stopwatch();
             stopwatch.Start();
             var answer = Problem585.Solution();
@@ -20,9 +21,17 @@ namespace ProjectEuler
 
         static void TimeStuff()
         {
+            var limit = 5000;
+            var primes = UtilityFunctions.Primes(limit);
+            List<long> nonSquareFree;
+            var squareFree = UtilityFunctions.SquareFreeIntegers(limit, out nonSquareFree);
+            var squares = new List<long>();
+            for (long i = 1; i < Math.Sqrt(limit); i++)
+                squares.Add(i * i);
+
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            var answer = UtilityFunctions.PartitionIntoPerfectSquares(500);
+            var answer = UtilityFunctions.Partition(limit, squareFree.ToArray(), squares.ToArray(),squareFree.Count-1, 4);
             stopwatch.Stop();
             Console.WriteLine($"Solution took {stopwatch.ElapsedMilliseconds} milliseconds.");
             Console.ReadKey();

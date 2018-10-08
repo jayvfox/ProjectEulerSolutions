@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 
 
 namespace ProjectEuler
@@ -10,74 +11,107 @@ namespace ProjectEuler
         public static long limit = 100;
         public static long Solution()
         {
+            var stopwatch = new Stopwatch();
+            long totalTime = 0;
+
             long solution = 0;
+            var validSolutions = new List<long[]>();
 
             var primes = UtilityFunctions.Primes(limit);
             List<long> nonSquareFree;
-            var squareFree = UtilityFunctions.SquareFreeIntegers(limit, out nonSquareFree);
+            var squareFree = UtilityFunctions.SquareFreeIntegers(limit * limit, out nonSquareFree);
             var squares = new List<long>();
             for (long i = 1; i < Math.Sqrt(limit); i++)
                 squares.Add(i * i);
 
             for (int n = 1; n <= limit; n++)
             {
-                var partitions = UtilityFunctions.Partition(n,squareFree.ToArray(),squares.ToArray());
+                long maxIndex = 0;
+                for (int i = 1; ; i++ )
+                {
+                    if (squareFree[i] > n)
+                        break;
+                    maxIndex = i;
+                }
+                stopwatch.Restart();
+                var partitions = UtilityFunctions.Partition(n, squareFree.ToArray(), squares.ToArray(), maxIndex,4);
+                stopwatch.Stop();
+                Console.WriteLine($"Time spent on partitioning {n}: {stopwatch.ElapsedMilliseconds}");
+                totalTime += stopwatch.ElapsedMilliseconds;
                 foreach (var part in partitions)
                 {
-                    var eligibleCandidate = true;
-                    var nonzeroCoeffs = part.TakeWhile(p => p != 0).ToList();
-                    if (nonzeroCoeffs.Distinct().Count() != nonzeroCoeffs.Count())
-                        break;
-                    foreach (var i in nonzeroCoeffs)
+                    var nonzeroCoeffIndices = new List<int>();
+                    for (int i = 0; i < part.Length; i++)
                     {
-                        if (nonSquareFree.Contains(i))
-                        {
-                            eligibleCandidate = false;
-                            break;
-                        }
-                            
+                        if (part[i] != 0)
+                            nonzeroCoeffIndices.Add(i);
                     }
-                    if (!eligibleCandidate)
-                        break;
-                    var numberSquaredArray = new long[squareFree.Count];
-                    for (long i = 1; i < part.Length; i++)
+                   //if (nonzeroCoeffIndices.Count != 2 && nonzeroCoeffIndices.Count != 4)
+                   //    continue;
+                    var masks = new bool[1 << nonzeroCoeffIndices.Count-1][];
+                    for (int i = 0; i < masks.Length; i++)
                     {
-                        var aI = part[i];
-                        if (aI == 0)
-                            continue;
-                        for (long j = 0; j < i; j++)
+                        masks[i] = new bool[part.Length];
+                        for (int j=0; j < nonzeroCoeffIndices.Count-1; j++)
                         {
-                            var aJ = part[j];
-                            if (aJ == 0)
+                            if ((i & (1 << j)) != 0)
+                                masks[i][nonzeroCoeffIndices[j]] = true;
+                        }
+                    }
+
+                    foreach (var signMask in masks)
+                    {
+                        var numberSquaredArray = new long[squareFree.Count];
+                        for (int i = 1; i < part.Length; i++)
+                        {
+                            numberSquaredArray[0] = n;
+                            if (part[i] == 0)
                                 continue;
-                            var indexI = squareFree.IndexOf(aI);
-                            var indexJ = squareFree.IndexOf(aJ);
-                            var gcd = UtilityFunctions.Gcd(aI, aJ);
-                            var aProduct = (aI / gcd) * (aJ / gcd);
-                            var indexProduct = squareFree.IndexOf(aProduct);
-                            numberSquaredArray[indexProduct] += 2 * (i + 1) * (j + 1) * gcd;
+                            var aI = squareFree[i];
+                            for (int j = 0; j < i; j++)
+                            {
+                                if (part[j] == 0)
+                                    continue;
+                                var aJ = squareFree[j];
+                                var gcd = UtilityFunctions.Gcd(aI, aJ);
+                                var aProduct = (aI / gcd) * (aJ / gcd);
+                                var indexProduct = squareFree.IndexOf(aProduct);
+                                long temp = (long)Math.Sqrt(part[i] * part[j]);
+                                numberSquaredArray[indexProduct] += 2 * temp * gcd * ( signMask[i] != signMask[j]? -1:1);
+                            }
                         }
-                     }
-                    int positiveCount = 0;
-                    for(long i = 1; i < numberSquaredArray.Length; i++)
-                    {
-                        var coefficient = numberSquaredArray[i];
-                        if (coefficient < 0)
+                        int positiveCount = 0;
+                        for (long i = 1; i < numberSquaredArray.Length; i++)
                         {
-                            positiveCount = 0;
-                            break;
+                            var coefficient = numberSquaredArray[i];
+                            if (coefficient < 0)
+                            {
+                                positiveCount = 0;
+                                break;
+                            }
+                            else if (coefficient > 0)
+                                positiveCount += 1;
                         }
-                        else if (coefficient > 0)
-                            positiveCount += 0;
+                        if (positiveCount == 1 || positiveCount == 2)
+                        {
+                            solution += 1;
+                            validSolutions.Add(numberSquaredArray);
+                            if (nonzeroCoeffIndices.Count > 4)
+                            {
+                                Console.Write($"{n}: ");
+                                for (int i = 0; i < numberSquaredArray.Length; i++)
+                                    if (numberSquaredArray[i] != 0)
+                                        Console.Write($"{numberSquaredArray[i]}<{squareFree[i]}> +");
+                                Console.WriteLine();
+                            }
+                        }
                     }
-                    if (positiveCount == 1 || positiveCount == 2)
-                        Console.WriteLine($"{n} : {part}");
                 }
 
             }
 
 
-
+            Console.WriteLine($"Total time spent on partitions: {totalTime}");
             return solution;
         }
     }
