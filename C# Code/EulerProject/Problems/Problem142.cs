@@ -7,7 +7,6 @@ namespace ProjectEuler
 {
     public class Problem142
     {
-        public static long limit = 100;
         public static long Solution()
         {
             var validPairs = new Dictionary<long, HashSet<long>>();
