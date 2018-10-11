@@ -6,6 +6,14 @@ namespace ProjectEuler
 {
     public class UtilityFunctions
     {
+        public static string ReverseString(string s)
+        {
+            string reversedString = "";
+            for (int i = 0; i < s.Length; i++)
+                reversedString += s[s.Length - i - 1];
+            return reversedString;
+        }
+
         public static List<string> GeneratePermutations(List<string> elements, long length)
         {
             if (length == -1)
@@ -149,9 +157,21 @@ namespace ProjectEuler
             {
                 var thisDigit = number % 10;
                 number = number / 10;
-                if (digits.Contains(thisDigit))
-                    return null;
+                //if (digits.Contains(thisDigit))
+                //    return null;
                 digits.Add(thisDigit);
+            }
+            return digits;
+        }
+
+        public static HashSet<int> DigitSet(long number)
+        {
+            var digits = new HashSet<int>();
+            for (int i = 0; number > 0; i++)
+            {
+                var thisDigit = number % 10;
+                number = number / 10;
+                digits.Add((int)thisDigit);
             }
             return digits;
         }

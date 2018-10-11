@@ -8,6 +8,20 @@ namespace ProjectEuler.Test
 {
     public class UnitTests
     {
+        [Theory]
+        [InlineData("15948","84951")]
+        [InlineData("", "")]
+        [InlineData("Your Mom, dud3", "3dud ,moM ruoY")]
+        public void ReverseStringTest(string s, string expected)
+        {
+            //Act
+            var actual = UtilityFunctions.ReverseString(s);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
         [Fact]
         public void GivenElements_GeneratePermutations()
         {
