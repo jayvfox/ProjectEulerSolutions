@@ -23,6 +23,10 @@ namespace ProjectEuler
             var stopwatch = new Stopwatch();
             while (true)
             {
+                for (int i = 2; i < 100; i++)
+                    if (UtilityFunctions.IsPrime(i))
+                        Console.WriteLine(i);
+
                 long number = 188748146801;
                 stopwatch.Restart();
                 var isPrime = UtilityFunctions.IsPrime(number);

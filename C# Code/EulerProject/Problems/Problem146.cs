@@ -22,6 +22,8 @@ namespace ProjectEuler
                 for (int i=3; i < primes.Count; i++)
                 {
                     long p = primes[i];
+                    if (p > num * num)
+                        break;
                     var r = num % p;
                     foreach (var s in residues)
                     {

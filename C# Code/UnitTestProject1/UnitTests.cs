@@ -121,7 +121,7 @@ namespace ProjectEuler.Test
         [Fact]
         public void TestPrimes()
         {
-            var primes = new List<long> { 2, 83, 1000001531, 68426879, 124699 };
+            var primes = new List<long> { 2, 83, 1000001531, 68426879, 124699, 188748146801};
             var composites = new List<long> { 124699 * 83, 91, 1001, 1741 * 1741 };
             var allArePrime = true;
             primes.ForEach(p => allArePrime &= UtilityFunctions.IsPrime(p));

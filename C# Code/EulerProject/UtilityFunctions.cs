@@ -7,10 +7,45 @@ namespace ProjectEuler
 {
     public class UtilityFunctions
     {
+       // public static bool IsPrime(long n)
+       //
+       // { //determines if n is a prime number
+       //     var primes = new long[]{ 2, 3, 5, 7, 11, 13, 17, 19, 23 };
+       //     var pn = primes.Length;
+       //
+       //     for (int i = 0; i < pn; ++i)
+       //         if (n % primes[i] == 0)
+       //             return n == primes[i];
+       //     if (n < primes[pn - 1])
+       //         return false;
+       //     long s = 0, t = n - 1;
+       //     while ((~t & 1)==1)
+       //     {
+       //         t >>= 1;
+       //         ++s;
+       //     }
+       //
+       //     for (int i = 0; i < pn; ++i)
+       //     {
+       //         long pt = ModPower(primes[i], t, n);
+       //         if (pt == 1) continue;
+       //         bool ok = false;
+       //         for (int j = 0; j < s && !ok; ++j)
+       //         {
+       //             if (pt == n - 1) ok = true;
+       //             pt = (pt*pt) % n;
+       //         }
+       //         if (!ok) return false;
+       //     }
+       //     return true;
+       // }
+        
+
 
         public static bool IsPrime(long n)
         {
-            if (n % 2 == 0) return false;
+            if (n == 2) return true;
+            if (n % 2 == 0 || n < 2) return false;
 
             BigInteger bn = n; // converting to BigInteger here to avoid converting up to 48 times below
             var n1 = bn - 1;
