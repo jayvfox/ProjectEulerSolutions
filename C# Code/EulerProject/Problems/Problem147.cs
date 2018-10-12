@@ -11,7 +11,6 @@ namespace ProjectEuler
         public static long Solution()
         {
             long solution = 0;
-            
 
             return solution;
         }

@@ -7,40 +7,19 @@ namespace ProjectEuler
 {
     public class UtilityFunctions
     {
-       // public static bool IsPrime(long n)
-       //
-       // { //determines if n is a prime number
-       //     var primes = new long[]{ 2, 3, 5, 7, 11, 13, 17, 19, 23 };
-       //     var pn = primes.Length;
-       //
-       //     for (int i = 0; i < pn; ++i)
-       //         if (n % primes[i] == 0)
-       //             return n == primes[i];
-       //     if (n < primes[pn - 1])
-       //         return false;
-       //     long s = 0, t = n - 1;
-       //     while ((~t & 1)==1)
-       //     {
-       //         t >>= 1;
-       //         ++s;
-       //     }
-       //
-       //     for (int i = 0; i < pn; ++i)
-       //     {
-       //         long pt = ModPower(primes[i], t, n);
-       //         if (pt == 1) continue;
-       //         bool ok = false;
-       //         for (int j = 0; j < s && !ok; ++j)
-       //         {
-       //             if (pt == n - 1) ok = true;
-       //             pt = (pt*pt) % n;
-       //         }
-       //         if (!ok) return false;
-       //     }
-       //     return true;
-       // }
         
-
+        public static long LargestPowerDividingFactorial(long k, long p)
+        {
+            if (!IsPrime(p))
+                throw new ArgumentException("Base number must be prime.", p);
+            long power = 0;
+            while (k > 0)
+            {
+                power += k / p;
+                k = k / p;
+            }
+            return power;
+        }
 
         public static bool IsPrime(long n)
         {
