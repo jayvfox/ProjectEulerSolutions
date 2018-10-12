@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace EulerProject
+namespace ProjectEuler
 {
     public class Problem118
     {
@@ -19,7 +19,7 @@ namespace EulerProject
             for (int i = 0; i < subsetCount; i++)
                 PrimeCandidates[i] = new List<long>();
 
-            var primes = UtilityFunctions.Sieve(98765432);
+            var primes = UtilityFunctions.Primes(98765432);
 
             foreach (var p in primes)
             {

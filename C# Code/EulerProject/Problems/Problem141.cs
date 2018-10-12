@@ -5,7 +5,7 @@ using System.Linq;
 
 
 
-namespace EulerProject
+namespace ProjectEuler
 {
     public class Problem141
     {

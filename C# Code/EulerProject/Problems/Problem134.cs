@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace EulerProject
+namespace ProjectEuler
 {
     public class Problem134
     {
@@ -12,7 +12,7 @@ namespace EulerProject
         {
             long solution = 0;
 
-            var primes = UtilityFunctions.Sieve(limit+100);
+            var primes = UtilityFunctions.Primes(limit+100);
 
             for (int i=3; true; i++)
             {

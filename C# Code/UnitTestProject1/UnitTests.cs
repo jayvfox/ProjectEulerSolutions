@@ -4,10 +4,81 @@ using System.Linq;
 using Xunit;
 
 
-namespace EulerProject.Test
+namespace ProjectEuler.Test
 {
     public class UnitTests
     {
+
+        [Theory]
+        [InlineData(50, 7, 8)]
+        [InlineData(200, 5, 49)]
+        [InlineData(1000, 7, 164)]
+        public static void LargestPowerDividingFactorialTest(long n, long p, long expected)
+        {
+            //Act
+            var actual = UtilityFunctions.LargestPowerDividingFactorial(n,p);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(256, 16)]
+        [InlineData(200, 14)]
+        [InlineData(1000, 31)]
+        [InlineData(68743871, 8291)]
+        [InlineData(20865628187880, 4567890)]
+        public static void iSqrtTest(long n, long expected)
+        {
+            //Act
+            var actual = UtilityFunctions.Isqrt(n);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public static void DigitsTest()
+        {
+            // Arrange 
+            long n = 6872368725336316;
+            List<int> expected = new List<int> { 6, 8, 7, 2, 3, 6, 8, 7, 2, 5, 3, 3, 6, 3, 1, 6 };
+            expected.Reverse();
+            //Act
+            var actual = UtilityFunctions.Digits(n);
+
+            //Assert
+            Assert.True(actual.SequenceEqual(expected));
+        }
+
+        [Theory]
+        [InlineData(2, 3, 8)]
+        [InlineData(5, 4, 625)]
+        [InlineData(10, 9, 1000000000)]
+        [InlineData(7, 0, 1)]
+        public void IntegerPowerTest(long a, long exp, long expected)
+        {
+            //Act
+            var actual = UtilityFunctions.IntegralPower(a,exp);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData("15948","84951")]
+        [InlineData("", "")]
+        [InlineData("Your Mom, dud3", "3dud ,moM ruoY")]
+        public void ReverseStringTest(string s, string expected)
+        {
+            //Act
+            var actual = UtilityFunctions.ReverseString(s);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
         [Fact]
         public void GivenElements_GeneratePermutations()
         {
@@ -25,8 +96,8 @@ namespace EulerProject.Test
             var expected2 = new List<string> { "12", "13", "21", "23", "31", "32" };
 
             //Act
-            var actual1 =UtilityFunctions.GeneratePermutations(input, 3);
-            var actual2 =UtilityFunctions.GeneratePermutations(input, 2);
+            var actual1 = UtilityFunctions.GeneratePermutations(input, 3);
+            var actual2 = UtilityFunctions.GeneratePermutations(input, 2);
             
 
             //Assert
@@ -61,9 +132,9 @@ namespace EulerProject.Test
         }
 
         [Fact]
-        public void TestPrimes()
+        public void IsPrimeTest()
         {
-            var primes = new List<long> { 2, 83, 1000001531, 68426879, 124699 };
+            var primes = new List<long> { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61,67, 71,73, 79, 83, 1000001531, 68426879, 124699, 188748146801};
             var composites = new List<long> { 124699 * 83, 91, 1001, 1741 * 1741 };
             var allArePrime = true;
             primes.ForEach(p => allArePrime &= UtilityFunctions.IsPrime(p));

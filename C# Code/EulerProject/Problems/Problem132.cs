@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 
-namespace EulerProject
+namespace ProjectEuler
 {
     public class Problem132
     {
@@ -18,7 +18,7 @@ namespace EulerProject
             var previousTime = 0.0;
             var currentTime = 0.0;
 
-            var primes = UtilityFunctions.Sieve(1000000);
+            var primes = UtilityFunctions.Primes(1000000);
             currentTime = stopwatch.ElapsedMilliseconds;
             Console.WriteLine($"Settig up took {currentTime - previousTime} milliseconds.");
             previousTime = currentTime;
