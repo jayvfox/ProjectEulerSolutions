@@ -13,7 +13,7 @@ namespace ProjectEuler
         {
             long solution = 0;
 
-            var primes = UtilityFunctions.Sieve(limit);
+            var primes = UtilityFunctions.Primes(limit);
             foreach (var p in primes)
             {
                 var ord = UtilityFunctions.MultiplicativeOrder(10, 9 * p);
