@@ -1,11 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Numerics;
 
 namespace ProjectEuler
 {
     public class UtilityFunctions
     {
+
+        public static bool IsPrime(long n)
+        {
+            if (n % 2 == 0) return false;
+
+            BigInteger bn = n; // converting to BigInteger here to avoid converting up to 48 times below
+            var n1 = bn - 1;
+            var r = 1;
+            var d = n1;
+            while (d.IsEven)
+            {
+                r++;
+                d >>= 1;
+            }
+            if (!Witness(2, r, d, bn, n1)) return false;
+            if (!Witness(3, r, d, bn, n1)) return false;
+            if (!Witness(5, r, d, bn, n1)) return false;
+            if (!Witness(7, r, d, bn, n1)) return false;
+            if (!Witness(11, r, d, bn, n1)) return false;
+            if (n < 2152302898747) return true;
+            if (!Witness(13, r, d, bn, n1)) return false;
+            if (n < 3474749660383) return true;
+            if (!Witness(17, r, d, bn, n1)) return false;
+            if (n < 341550071728321) return true;
+            if (!Witness(19, r, d, bn, n1)) return false;
+            if (!Witness(23, r, d, bn, n1)) return false;
+            if (n < 3825123056546413051) return true;
+            return Witness(29, r, d, bn, n1)
+                   && Witness(31, r, d, bn, n1)
+                   && Witness(37, r, d, bn, n1);
+        }
+
+        // a single instance of the Miller-Rabin Witness loop
+        private static bool Witness(BigInteger a, int r, BigInteger d, BigInteger n, BigInteger n1)
+        {
+            var x = BigInteger.ModPow(a, d, n);
+            if (x == BigInteger.One || x == n1) return true;
+
+            while (r > 1)
+            {
+                x = BigInteger.ModPow(x, 2, n);
+                if (x == BigInteger.One) return false;
+                if (x == n1) return true;
+                r--;
+            }
+            return false;
+        }
+
+        public static long IntegralPower(long m, long exp)
+        {
+            long power = 1;
+            while (exp > 0)
+            {
+                if (exp % 2 == 1)
+                    power = (power * m);
+                exp >>= 1;
+                m = m * m;
+            }
+            return power;
+        }
+
         public static string ReverseString(string s)
         {
             string reversedString = "";
@@ -75,19 +137,7 @@ namespace ProjectEuler
             return complement;
         }
 
-        public static bool IsPrime(long n)
-        {
-            if (n == 2 || n == 3 || n == 5 || n == 7)
-                return true;
-            var upperLimit = (long)Math.Sqrt(n);
-            var sieve = Sieve(upperLimit);
-            foreach (var prime in sieve)
-                if (n % prime == 0)
-                    return false;
-            return true;
-        }
-
-        public static List<long> Sieve(long B0)
+        public static List<long> Primes(long B0)
         {
             // Sieve of Eratosthenes 
             // find all prime numbers 
@@ -131,7 +181,18 @@ namespace ProjectEuler
 
         public static long DigitSignature(long number, List<long> reference)
         {
-            var digits = Digits(number);
+            var digits = new List<long>();
+            for (int i = 0; number > 0; i++)
+            {
+                var thisDigit = number % 10;
+                number = number / 10;
+                if (digits.Contains(thisDigit))
+                {
+                    digits = null;
+                    break;
+                }
+                digits.Add(thisDigit);
+            }
             return DigitSignature(digits, reference);
         }
 
@@ -150,15 +211,13 @@ namespace ProjectEuler
             return count;
         }
 
-        public static List<long> Digits(long number)
+        public static List<int> Digits(long number)
         {
-            var digits = new List<long>();
+            var digits = new List<int>();
             for (int i = 0; number > 0; i++)
             {
-                var thisDigit = number % 10;
+                var thisDigit = (int)(number % 10);
                 number = number / 10;
-                //if (digits.Contains(thisDigit))
-                //    return null;
                 digits.Add(thisDigit);
             }
             return digits;
@@ -179,7 +238,7 @@ namespace ProjectEuler
         public static long Totient(long n)
         {
             {
-                var primes = Sieve(n);
+                var primes = Primes(n);
                 if (primes[primes.Count - 1] == n)
                     return n - 1;
 
@@ -279,7 +338,7 @@ namespace ProjectEuler
             charmichaelArray[1] = 1;
 
             var numbers = new List<long> { 1 };
-            var primes = Sieve(n);
+            var primes = Primes(n);
 
             foreach (var p in primes)
             {
@@ -342,6 +401,21 @@ namespace ProjectEuler
                            
             return (result % n + n) % n;
         }
+
+        // Finds the integer square root of a positive number  
+        // TODO: Slower than using Math.Sqrt(n) and casting to long.
+        public static long Isqrt(long num)
+        {
+            if (0 == num) { return 0; }  // Avoid zero divide  
+            var n = (num / 2) + 1;       // Initial estimate, never low  
+            var n1 = (n + (num / n)) / 2;
+            while (n1 < n)
+            {
+                n = n1;
+                n1 = (n + (num / n)) / 2;
+            } // end while  
+            return n;
+        } // end Isqrt() 
 
         public static bool IsPerfectSquare(long n)
         {

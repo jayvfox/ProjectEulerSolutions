@@ -8,6 +8,50 @@ namespace ProjectEuler.Test
 {
     public class UnitTests
     {
+
+        [Theory]
+        [InlineData(256, 16)]
+        [InlineData(200, 14)]
+        [InlineData(1000, 31)]
+        [InlineData(68743871, 8291)]
+        [InlineData(20865628187880, 4567890)]
+        public static void iSqrtTest(long n, long expected)
+        {
+            //Act
+            var actual = UtilityFunctions.Isqrt(n);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public static void DigitsTest()
+        {
+            // Arrange 
+            long n = 6872368725336316;
+            List<int> expected = new List<int> { 6, 8, 7, 2, 3, 6, 8, 7, 2, 5, 3, 3, 6, 3, 1, 6 };
+            expected.Reverse();
+            //Act
+            var actual = UtilityFunctions.Digits(n);
+
+            //Assert
+            Assert.True(actual.SequenceEqual(expected));
+        }
+
+        [Theory]
+        [InlineData(2, 3, 8)]
+        [InlineData(5, 4, 625)]
+        [InlineData(10, 9, 1000000000)]
+        [InlineData(7, 0, 1)]
+        public void IntegerPowerTest(long a, long exp, long expected)
+        {
+            //Act
+            var actual = UtilityFunctions.IntegralPower(a,exp);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
         [Theory]
         [InlineData("15948","84951")]
         [InlineData("", "")]
