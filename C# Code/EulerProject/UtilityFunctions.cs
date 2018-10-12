@@ -277,13 +277,13 @@ namespace ProjectEuler
             return count;
         }
 
-        public static List<int> Digits(long number)
+        public static List<int> Digits(long number, int baseNumber = 10)
         {
             var digits = new List<int>();
             for (int i = 0; number > 0; i++)
             {
-                var thisDigit = (int)(number % 10);
-                number = number / 10;
+                var thisDigit = (int)(number % baseNumber);
+                number = number / baseNumber;
                 digits.Add(thisDigit);
             }
             return digits;

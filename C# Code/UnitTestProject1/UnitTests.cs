@@ -10,6 +10,19 @@ namespace ProjectEuler.Test
     {
 
         [Theory]
+        [InlineData(50, 7, 8)]
+        [InlineData(200, 5, 49)]
+        [InlineData(1000, 7, 164)]
+        public static void LargestPowerDividingFactorialTest(long n, long p, long expected)
+        {
+            //Act
+            var actual = UtilityFunctions.LargestPowerDividingFactorial(n,p);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
         [InlineData(256, 16)]
         [InlineData(200, 14)]
         [InlineData(1000, 31)]
