@@ -11,7 +11,7 @@ namespace ProjectEuler
         public static long LargestPowerDividingFactorial(long k, long p)
         {
             if (!IsPrime(p))
-                throw new ArgumentException("Base number must be prime.", p);
+                throw new ArgumentException("Base number must be prime.");
             long power = 0;
             while (k > 0)
             {

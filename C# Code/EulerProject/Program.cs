@@ -12,10 +12,9 @@ namespace ProjectEuler
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            Console.WriteLine(Problem146.Solution());
+            Console.WriteLine(Problem147.Solution());
             stopwatch.Stop();
             Console.WriteLine($"Solution took {stopwatch.ElapsedMilliseconds} milliseconds.");
-            Console.ReadLine();
         }
 
         static void TimeStuff()
