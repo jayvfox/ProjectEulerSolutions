@@ -12,7 +12,7 @@ namespace ProjectEuler
         {
             double solution = 0;
 
-            var startPosition = new List<int> {8, 4, 2, 1};
+            var startPosition = new int[] {1, 1, 1, 1, 1};
 
             solution = ExpectedNumberOfSingleSheets(startPosition);
 
@@ -20,24 +20,22 @@ namespace ProjectEuler
         }
 
 
-        private static double ExpectedNumberOfSingleSheets(List<int> startPosition)
+        private static double ExpectedNumberOfSingleSheets(int[] startPosition)
         {
-            if (startPosition.SequenceEqual(new[] { 1 }))
+            if (startPosition[0] == 1 && startPosition.Sum() == 1)
                 return 0;
 
-            var sheetCount = startPosition.Count;
+            var sheetCount = startPosition.Sum();
             double answer = 0;
-            foreach (var sheet in startPosition)
+            for (int i = 0; i <  startPosition.Length; i++)
             {
-                var nextPosition = new List<int>(startPosition);
-                nextPosition.Remove(sheet);
-                int splitSheet = sheet / 2;
-                while (splitSheet > 0)
-                {
-                    nextPosition.Add(splitSheet);
-                    splitSheet /= 2;
-                }
-                answer += ExpectedNumberOfSingleSheets(nextPosition);
+                if (startPosition[i] == 0)
+                    continue;
+                int[] nextPosition = (int[])startPosition.Clone();
+                nextPosition[i] -= 1;
+                for (int j = 0; j < i; j++)
+                    nextPosition[j] += 1;
+                answer += startPosition[i]*ExpectedNumberOfSingleSheets(nextPosition);
             }
             return (sheetCount == 1? answer+1 : answer / sheetCount);
         }
