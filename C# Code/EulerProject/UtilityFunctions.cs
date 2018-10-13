@@ -7,6 +7,19 @@ namespace ProjectEuler
 {
     public class UtilityFunctions
     {
+        public static List<long> SumOfSquares(long p)
+        {
+            if (p == 2)
+                return new List<long> { 1, 1 };
+            if (p % 4 != 1)
+                return null;
+            for (long i = 1; ; i++)
+            {
+                var candidate = (long)Math.Sqrt(p - i * i);
+                if (candidate * candidate + i * i == p)
+                    return new List<long> { i, candidate };
+            }
+        }
         
         public static long LargestPowerDividingFactorial(long k, long p)
         {
@@ -203,7 +216,7 @@ namespace ProjectEuler
             return complement;
         }
 
-        public static List<long> Primes(long B0)
+        public static List<long> Primes(long B0, long lowerBound = 2)
         {
             // Sieve of Eratosthenes 
             // find all prime numbers 
@@ -238,7 +251,7 @@ namespace ProjectEuler
 
             var primes = new List<long>();
 
-            for (i = 2; i <= B0; i++)
+            for (i = lowerBound; i <= B0; i++)
                 if (sieve[i])
                     primes.Add(i);
 
