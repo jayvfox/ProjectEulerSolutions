@@ -12,7 +12,7 @@ namespace ProjectEuler
         {
             double solution = 0;
 
-            var startPosition = new int[] {1, 1, 1, 1, 1};
+            var startPosition = new int[] {1, 1, 1, 1};
 
             solution = ExpectedNumberOfSingleSheets(startPosition);
 
@@ -37,7 +37,8 @@ namespace ProjectEuler
                     nextPosition[j] += 1;
                 answer += startPosition[i]*ExpectedNumberOfSingleSheets(nextPosition);
             }
-            return (sheetCount == 1? answer+1 : answer / sheetCount);
+            answer = (sheetCount == 1 ? answer + 1 : answer / sheetCount);
+            return answer;
         }
     }
 }
