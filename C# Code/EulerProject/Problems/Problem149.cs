@@ -67,41 +67,13 @@ namespace ProjectEuler
 
         private static double MaxSum(List<double> vector, double currentMax)
         {
-            vector.RemoveAll(t => t == 0);
-            if (vector.Select(t => Math.Max(0, t)).Sum() < currentMax)
-                return currentMax;
-
-            var subSum = new List<double>();
             double currentSum = 0;
-            for (int i = 0; i < vector.Count; i++)
+            for (int i = 0; i < vector.Count; i += 2)
             {
+                if (currentSum < 0)
+                    currentSum = 0;
                 currentSum += vector[i];
-                if (i == vector.Count - 1)
-                {
-                    subSum.Add(currentSum);
-                    break;
-                }
-                if (vector[i] * vector[i + 1] > 0)
-                    continue;
-                                    
-                subSum.Add(currentSum);
-                currentSum = 0;
-            }
-
-            if (subSum[0] < 0)
-                subSum.RemoveAt(0);
-            if (subSum.Last() < 0)
-                subSum.RemoveAt(subSum.Count - 1);
-
-            for (int i = 0; i < subSum.Count; i += 2)
-            {
-                currentSum = subSum[i];
                 currentMax = Math.Max(currentSum, currentMax);
-                for (int j = i + 1; j < subSum.Count; j += 2)
-                {
-                    currentSum += subSum[j] + subSum[j + 1];
-                    currentMax = Math.Max(currentSum, currentMax);
-                }
             }
             return currentMax;
         }
