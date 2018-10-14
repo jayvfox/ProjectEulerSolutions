@@ -8,56 +8,35 @@ namespace ProjectEuler
 {
     public class Problem153
     {
-        public static long limit = 100000;
+        public static long limit = 100000000;
         public static long Solution()
         {
-            var stopwatchSolver = new Stopwatch();
-            var stopwatchKeyList = new Stopwatch();
-            var stopwatchPopulateDivSums = new Stopwatch();
-
             long solution = 0;
-            var primes = UtilityFunctions.Primes(limit);
-            var divSums = new SortedList<long,long>();
-            divSums.Add(1,1);
-            foreach (var p in primes)
-            {
-                long pSum;
-                if (p == 2)
-                    pSum =  3;
-                else if (p % 4 == 3)
-                    pSum = 1;
-                else
-                {
-                    stopwatchSolver.Start();
-                    var temp = UtilityFunctions.SumOfSquares(p);
-                    if (temp.Count > 2)
-                        Console.WriteLine(p);
-                    pSum = 1 + 2 * temp.Sum();
-                    stopwatchSolver.Stop();
-                }
-                stopwatchKeyList.Start();
-                var keyList = divSums.Keys.ToList();
-                stopwatchKeyList.Stop();
 
-                stopwatchPopulateDivSums.Start();
-                foreach (var key in keyList)
+            var primes = UtilityFunctions.Primes(limit, (long)Math.Sqrt(limit));
+
+            for (long a = 1; a <= Math.Sqrt(limit); a++)
+            {
+                for (long b = 1; b < a; b++)
                 {
-                    if (p * key > limit)
+                    var g = UtilityFunctions.Gcd(a, b);
+                    if (g > 1)
+                        continue;
+                    var n = a * a + b * b;
+                    if (n > limit)
                         break;
-                    long primePower = p;
-                    while (primePower*key <= limit)
-                    {
-                        divSums.Add(primePower * key, divSums[key] * ((primePower - 1) / (p - 1) * pSum  + primePower));
-                        primePower *= p;
-                    }
+                    var floor = limit / n;
+                    for (long k = 1; k <= floor;k++)
+                        solution += 2 * (a + b) * k * (limit/(k*n));
                 }
-                stopwatchPopulateDivSums.Stop();
             }
-            solution = divSums.Sum(x => x.Value);
-            Console.WriteLine($"Solving for a^2+b^2=p took {stopwatchSolver.ElapsedMilliseconds} milliseconds.");
-            Console.WriteLine($"Getting the keys took {stopwatchKeyList.ElapsedMilliseconds} milliseconds.");
-            Console.WriteLine($"populating table took {stopwatchPopulateDivSums.ElapsedMilliseconds} milliseconds.");
-            var tempp = divSums.OrderBy(p => p.Key);
+
+            for (long i = 1; i <= limit; i++)
+            {
+                solution -= (limit % i)*(i%2==0? 2:1);
+            }
+            solution += limit * limit + limit*(limit/2);
+
             return solution;
         }
     }

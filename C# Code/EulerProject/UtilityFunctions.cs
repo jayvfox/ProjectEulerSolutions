@@ -9,16 +9,21 @@ namespace ProjectEuler
     {
         public static List<long> SumOfSquares(long p)
         {
+            var pairs = new List<long>();
             if (p == 2)
                 return new List<long> { 1, 1 };
-            if (p % 4 != 1)
-                return null;
-            for (long i = 1; ; i++)
+            if (p % 4 == 3)
+                return pairs;
+            for (long i = 1;i <= Math.Sqrt(p/2) ; i++)
             {
                 var candidate = (long)Math.Sqrt(p - i * i);
                 if (candidate * candidate + i * i == p)
-                    return new List<long> { i, candidate };
+                {
+                    pairs.Add(i);
+                    pairs.Add(candidate);
+                }
             }
+            return pairs;
         }
         
         public static long LargestPowerDividingFactorial(long k, long p)
