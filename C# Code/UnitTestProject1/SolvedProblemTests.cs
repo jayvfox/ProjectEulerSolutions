@@ -293,6 +293,8 @@ namespace ProjectEuler.Test
             Assert.Equal(expected, actual);
         }
 
+
+        [Fact]
         public void Problem153()
         {
             //Arrange

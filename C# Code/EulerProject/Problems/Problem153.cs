@@ -12,9 +12,7 @@ namespace ProjectEuler
         public static long Solution()
         {
             long solution = 0;
-
-            var primes = UtilityFunctions.Primes(limit, (long)Math.Sqrt(limit));
-
+            var stopwatch = new Stopwatch();
             for (long a = 1; a <= Math.Sqrt(limit); a++)
             {
                 for (long b = 1; b < a; b++)
@@ -26,17 +24,21 @@ namespace ProjectEuler
                     if (n > limit)
                         break;
                     var floor = limit / n;
+                    stopwatch.Start();
                     for (long k = 1; k <= floor;k++)
                         solution += 2 * (a + b) * k * (limit/(k*n));
+                    stopwatch.Stop();
                 }
             }
-
+            Console.WriteLine($"Time spent in first loop: {stopwatch.ElapsedMilliseconds}");
+            stopwatch.Restart();
             for (long i = 1; i <= limit; i++)
             {
                 solution -= (limit % i)*(i%2==0? 2:1);
             }
+            stopwatch.Stop();
             solution += limit * limit + limit*(limit/2);
-
+            Console.WriteLine($"Time spent in second loop: {stopwatch.ElapsedMilliseconds}");
             return solution;
         }
     }
