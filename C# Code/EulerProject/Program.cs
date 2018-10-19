@@ -12,7 +12,7 @@ namespace ProjectEuler
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            Console.WriteLine(Problem153.Solution());
+            Console.WriteLine(Problem493.Solution());
             stopwatch.Stop();
             Console.WriteLine($"Solution took {stopwatch.ElapsedMilliseconds} milliseconds.");
             Console.ReadKey();
@@ -23,14 +23,24 @@ namespace ProjectEuler
             var stopwatch = new Stopwatch();
             while (true)
             {
-                var limit = 100000000;
-                for (int i = 2; i <= limit; i++)
+                var limit = 10000000;
+                for (int i = 1; i < limit; i++)
                 {
                     stopwatch.Start();
-                    var temp = limit % i;
+                    UtilityFunctions.DigitSum(limit);
                     stopwatch.Stop();
                 }
-                Console.WriteLine($"Modding took {stopwatch.ElapsedMilliseconds} milliseconds to run.");
+                Console.WriteLine($"New digitSum took {stopwatch.ElapsedMilliseconds} milliseconds to run.");
+                stopwatch.Reset();
+                for (int i = 1; i < limit; i++)
+                {
+                    stopwatch.Start();
+                    var sum = 0;
+                    foreach (var d in UtilityFunctions.Digits(limit))
+                        sum += d;
+                    stopwatch.Stop();
+                }
+                Console.WriteLine($"Old digitSum took {stopwatch.ElapsedMilliseconds} milliseconds to run.");
                 Console.ReadKey();
             }
         }

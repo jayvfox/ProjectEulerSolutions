@@ -322,5 +322,18 @@ namespace ProjectEuler.Test
             
         }
 
+        [Theory]
+        [InlineData(5,2,10)]
+        [InlineData(20, 5, 15504)]
+        [InlineData(100, 10, 17310309456440)]
+        public void ChooseTest(long n, long k, long expected)
+        {
+            //Act
+            var actual = UtilityFunctions.Choose(n, k);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
     }
 }
