@@ -10,8 +10,8 @@ namespace ProjectEuler
         public static long limit = 20;
         public static double Solution()
         {
-            double solution = 0;
-             return ExpectedBalls(0,0);
+            return 7 * (1 - UtilityFunctions.Choose(60, 20) / (double)UtilityFunctions.Choose(70, 20)); 
+            //return ExpectedBalls(0,0);
         }
 
         private static double ExpectedBalls(int step, int colours)
