@@ -13,7 +13,6 @@ namespace ProjectEuler
         {
             double solution = 0;
             var randomGrid = GenerateRandomGrid(limit);
-            var check = randomGrid.ToArray();
 
             for (int i = 0; i < limit;i++)
             {
@@ -68,7 +67,7 @@ namespace ProjectEuler
         private static double MaxSum(List<double> vector, double currentMax)
         {
             double currentSum = 0;
-            for (int i = 0; i < vector.Count; i += 2)
+            for (int i = 0; i < vector.Count; i += 1)
             {
                 if (currentSum < 0)
                     currentSum = 0;

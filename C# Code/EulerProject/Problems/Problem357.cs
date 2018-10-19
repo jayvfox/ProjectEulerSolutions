@@ -31,7 +31,7 @@ namespace ProjectEuler
             foreach (var n in eligibleN)
             {
                 bool allPrime = true;
-                for (var j = 7; j < Math.Sqrt(n); j++)
+                for (var j = 5; j < Math.Sqrt(n); j++)
                 {
                     if (n % j == 0)
                     {

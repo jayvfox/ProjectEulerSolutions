@@ -300,7 +300,7 @@ namespace ProjectEuler.Test
             var expected = 0.464399;
 
             //Act
-            var actual = ProjectEuler.Problem151.Solution();
+            var actual = Math.Round(ProjectEuler.Problem151.Solution(),6);
             //Assert
             Assert.Equal(expected, actual);
         }
