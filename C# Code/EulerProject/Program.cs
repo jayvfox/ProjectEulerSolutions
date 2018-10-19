@@ -12,7 +12,7 @@ namespace ProjectEuler
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            Console.WriteLine(Problem149.Solution());
+            Console.WriteLine(Problem153.Solution());
             stopwatch.Stop();
             Console.WriteLine($"Solution took {stopwatch.ElapsedMilliseconds} milliseconds.");
             Console.ReadKey();
@@ -23,21 +23,14 @@ namespace ProjectEuler
             var stopwatch = new Stopwatch();
             while (true)
             {
-                for (int i = 2; i < 100; i++)
-                    if (UtilityFunctions.IsPrime(i))
-                        Console.WriteLine(i);
-
-                long number = 188748146801;
-                stopwatch.Restart();
-                var isPrime = UtilityFunctions.IsPrime(number);
-                stopwatch.Stop();
-                Console.WriteLine($"IsPrime took {stopwatch.ElapsedMilliseconds} milliseconds and returned {isPrime}.");
-                stopwatch.Restart();
-                number = 99194853094755497;
-                isPrime = UtilityFunctions.IsPrime(number);  
-                stopwatch.Stop();
-                Console.WriteLine($"IsPrime took {stopwatch.ElapsedMilliseconds} milliseconds and returned {isPrime}.");
-
+                var limit = 100000000;
+                for (int i = 2; i <= limit; i++)
+                {
+                    stopwatch.Start();
+                    var temp = limit % i;
+                    stopwatch.Stop();
+                }
+                Console.WriteLine($"Modding took {stopwatch.ElapsedMilliseconds} milliseconds to run.");
                 Console.ReadKey();
             }
         }

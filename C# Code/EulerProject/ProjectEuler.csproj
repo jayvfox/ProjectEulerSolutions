@@ -69,7 +69,12 @@
     <Compile Include="Problems\Problem146.cs" />
     <Compile Include="Problems\Problem147.cs" />
     <Compile Include="Problems\Problem148.cs" />
+    <Compile Include="Problems\Problem150.cs" />
     <Compile Include="Problems\Problem149.cs" />
+    <Compile Include="Problems\Problem151.cs" />
+    <Compile Include="Problems\Problem152.cs" />
+    <Compile Include="Problems\Problem153.cs" />
+    <Compile Include="Problems\Problem154.cs" />
     <Compile Include="Problems\ProblemTemplate.cs" />
     <Compile Include="Problems\Problem129.cs" />
     <Compile Include="Problems\Problem118.cs" />
