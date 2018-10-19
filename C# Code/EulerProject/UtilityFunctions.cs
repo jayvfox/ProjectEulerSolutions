@@ -307,6 +307,18 @@ namespace ProjectEuler
             return digits;
         }
 
+        public static long DigitSum(long number, int baseNumber = 10)
+        {
+            long digitSum = 0;
+            for (int i = 0; number > 0; i++)
+            {
+                var thisDigit = (int)(number % baseNumber);
+                number = number / baseNumber;
+                digitSum += thisDigit;
+            }
+            return digitSum;
+        }
+
         public static HashSet<int> DigitSet(long number)
         {
             var digits = new HashSet<int>();
