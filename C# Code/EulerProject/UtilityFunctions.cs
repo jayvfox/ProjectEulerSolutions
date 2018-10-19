@@ -7,6 +7,18 @@ namespace ProjectEuler
 {
     public class UtilityFunctions
     {
+
+    
+        public static long Choose(long n, long k)
+        {
+            if (2 * k > n)
+                return Choose(n, n - k);
+            long result = 1;
+            for (long i = 0; i < k; i++)
+                result = (result * (n - i)) / (i + 1);
+            return result;
+        }
+
         public static List<long> SumOfSquares(long p)
         {
             var pairs = new List<long>();
