@@ -13,11 +13,15 @@ namespace ProjectEuler
         {
             long solution = 0;
             var stopwatch = new Stopwatch();
+            var gcdStopwatch = new Stopwatch();
             for (long a = 1; a <= Math.Sqrt(limit); a++)
             {
-                for (long b = 1; b < a; b++)
+                var stepSize = 2 - (a % 2);
+                for (long b = 1; b < a; b += stepSize)
                 {
+                    gcdStopwatch.Start();
                     var g = UtilityFunctions.Gcd(a, b);
+                    gcdStopwatch.Stop();
                     if (g > 1)
                         continue;
                     var n = a * a + b * b;
@@ -25,11 +29,14 @@ namespace ProjectEuler
                         break;
                     var floor = limit / n;
                     stopwatch.Start();
-                    for (long k = 1; k <= floor;k++)
-                        solution += 2 * (a + b) * k * (limit/(k*n));
+                    for (long k = 1; k <= floor; k++)
+                    {
+                        solution += 2*(a+b)*k*(limit/(k*n));
+                    }
                     stopwatch.Stop();
                 }
             }
+            Console.WriteLine($"Time spent calculating gcd: {gcdStopwatch.ElapsedMilliseconds}");
             Console.WriteLine($"Time spent in first loop: {stopwatch.ElapsedMilliseconds}");
             stopwatch.Restart();
             for (long i = 1; i <= limit; i++)
