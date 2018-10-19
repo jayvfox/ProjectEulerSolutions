@@ -329,6 +329,18 @@ namespace ProjectEuler.Test
             //Assert
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void Problem357()
+        {
+            //Arrange
+            var expected = 1739023853137;
+
+            //Act
+            var actual = ProjectEuler.Problem357.Solution();
+            //Assert
+            Assert.Equal(expected, actual);
+        }
     }
 }
 
