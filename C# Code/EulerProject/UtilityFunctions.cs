@@ -34,6 +34,8 @@ namespace ProjectEuler
 
     public static long Choose(long n, long k)
         {
+            if (k < 0 || k > n)
+                return 0;
             if (2 * k > n)
                 return Choose(n, n - k);
             long result = 1;
