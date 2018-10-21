@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace ProjectEuler
 {
+    /// <summary>
+    /// The expected value of the number of different colours is the sum of the probabilities that a particular colour is drawn. 
+    /// </summary>
     public class Problem493
     {
         public static long limit = 20;

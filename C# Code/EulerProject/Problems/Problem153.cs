@@ -8,6 +8,9 @@ namespace ProjectEuler
 {
     public class Problem153
     {
+        /// <summary>
+        /// n is divisible by a+bi, b!=0, iff a^2+b^2 divides n.
+        /// </summary>
         public static long limit = 100000000;
         public static long Solution()
         {

@@ -7,6 +7,9 @@ namespace ProjectEuler
 {
     public class Problem154
     {
+        /// <summary>
+        /// The coefficient of x^ay^bz^c equals n!/(a!b!c!). We calculate the largest power of 10 dividing the numerator and denominator, and check when they differ by at least 12. 
+        /// </summary>
         public static long limit = 200000;
         public static long Solution()
         {

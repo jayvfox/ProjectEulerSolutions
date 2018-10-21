@@ -7,6 +7,11 @@ namespace ProjectEuler
 {
     public class Problem357
     {
+        /// <summary>
+        /// It's clear than n must be square-free and even. If n = 2k, then both p = k+2 and 2k+1 = 2p-3 must be prime. Furthermore, if 
+        /// n is divisble by 3 and n = 6k, then all of 6k+1, 3k+2, 2k+3 and k+6 must be prime. We filter the n to choose based on these
+        /// conditions, and directly test those. 
+        /// </summary>
         public static long limit = 100000000;
         public static long Solution()
         {
