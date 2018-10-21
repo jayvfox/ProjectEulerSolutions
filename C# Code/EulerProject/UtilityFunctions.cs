@@ -2,14 +2,37 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
+using System.Linq;
 
 namespace ProjectEuler
 {
     public class UtilityFunctions
     {
+    public static Dictionary<long, List<List<long>>> Partition(long n)
+        {
+            var partitionsDictionary = new Dictionary<long, List<List<long>>>();
+            partitionsDictionary.Add(0, new List<List<long>> { new List<long> {   } });
+            partitionsDictionary.Add(1, new List<List<long>> { new List<long> { 1 } });
+            
+            for (long k = 2; k<= n; k++)
+            {
+                partitionsDictionary.Add(k, new List<List<long>> { new List<long> { k } });
+                for (long firstBit = k-1; firstBit > 0; firstBit--)
+                {
+                    var eligiblePartitions = partitionsDictionary[k - firstBit].Where(p => p.Max() <= firstBit);
+                    
+                    foreach (var par in eligiblePartitions)
+                    {
+                        var thisPartition = new List<long>(par);
+                        thisPartition.Add(firstBit);
+                        partitionsDictionary[k].Add(thisPartition);
+                    }
+                }
+            }
+            return partitionsDictionary;
+        }
 
-    
-        public static long Choose(long n, long k)
+    public static long Choose(long n, long k)
         {
             if (2 * k > n)
                 return Choose(n, n - k);

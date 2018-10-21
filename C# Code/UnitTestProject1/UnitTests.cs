@@ -335,5 +335,20 @@ namespace ProjectEuler.Test
             Assert.Equal(expected, actual);
         }
 
+        [Theory]
+        [InlineData(5, 4, new long[] { 1, 2, 2 })]
+        [InlineData(10, 7, new long[] { 4, 6})]
+        [InlineData(10, 16, new long[] { 1, 2, 2, 5 })]
+        public void PartitionTest(long n, int position, long[] expected)
+        {
+            //Act
+            var actual = UtilityFunctions.Partition(n)[n][position].ToArray();
+
+            //Assert
+            Assert.Equal(expected, actual);
+            
+        }
+
+
     }
 }
