@@ -425,6 +425,10 @@ namespace ProjectEuler
 
         public static long Gcd(long a, long b, out long inverseA, out long inverseB)
         {
+            if (a < 0)
+                return Gcd(-a, b, out inverseA, out inverseB);
+            if (b<0)
+                return Gcd(a, -b, out inverseA, out inverseB);
             var x = new long[2];
             var y = new long[2];
 
