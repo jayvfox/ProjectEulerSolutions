@@ -425,10 +425,6 @@ namespace ProjectEuler
 
         public static long Gcd(long a, long b, out long inverseA, out long inverseB)
         {
-            if (a < 0)
-                return Gcd(-a, b, out inverseA, out inverseB);
-            if (b<0)
-                return Gcd(a, -b, out inverseA, out inverseB);
             var x = new long[2];
             var y = new long[2];
 
@@ -444,6 +440,12 @@ namespace ProjectEuler
                 var tempY = y[0] - m * y[1];
                 x[0] = x[1]; x[1] = tempX;
                 y[0] = y[1]; y[1] = tempY;
+            }
+            if (a < 0)
+            {
+                inverseA = -x[0];
+                inverseB = -y[0];
+                return -a;
             }
             inverseA = x[0];
             inverseB = y[0];
