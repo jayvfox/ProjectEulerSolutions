@@ -10,7 +10,6 @@ namespace ProjectEuler
         public static long limit = 1020304050607080900;
         public static long Solution()
         {
-            long solution = 0;
             long testNumber = (((int)Math.Sqrt(limit)) / 100)*100+30;
             while (true)
             {

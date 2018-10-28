@@ -416,9 +416,9 @@ namespace ProjectEuler
             while (exp > 0)
             {
                 if (exp % 2 == 1)
-                    modPower = (modPower * a % n);
+                    modPower = (modPower * a) % n;
                 exp >>= 1;
-                a = a * a % n;
+                a = (a * a) % n;
             }
             return modPower;
          }
