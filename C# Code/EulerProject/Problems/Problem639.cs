@@ -120,12 +120,13 @@ namespace ProjectEuler
 
         public static long Solution()
         {
-            var chunks = Math.Max(limit/1000000,1);
+            var chunks = Math.Max(limit/1000,1);
             
 
             var stopwatch = new Stopwatch();
-            var solution = new long[chunks];
+            var solution = new long[1];
             var primes = UtilityFunctions.Primes((int)Math.Sqrt(limit));
+            var squareFreePart = new long[modBase];
             int[] progress = new[] { 0 };
 
             Parallel.For(0, chunks, batch =>
@@ -137,6 +138,8 @@ namespace ProjectEuler
                 {
 
                     var primePower = p * p;
+                    if (primePower > upperLimit)
+                        break;
                     while (primePower <= upperLimit)
                     {
                         for (long i = lowerLimit / primePower + 1; i <= upperLimit / primePower; i++)
@@ -152,46 +155,42 @@ namespace ProjectEuler
                         primePower *= p;
                     }
                 }
-                
-                // stopwatch.Restart();
-                // for (long i = 1; i <= limit; i++)
-                // {
-                // 
-                //     var reduced = nonSquareFree.ContainsKey(i) ? nonSquareFree[i] % modBase : i % modBase;
-                //     squareFreePart[reduced]++;
-                // }
-                // stopwatch.Stop();
-                // Console.WriteLine($"Reducing square-free list took {stopwatch.ElapsedMilliseconds}.");
-
-                for (long i = lowerLimit + 1; i <= upperLimit; i++)
+                lock (squareFreePart)
                 {
-
-                    var number = nonSquareFree.ContainsKey(i) ? nonSquareFree[i] : i;
-
-                    long sum;
-                    UtilityFunctions.Gcd(number - 1, modBase, out long inverse, out long dummy);
-                    if (inverse == 0)
-                        sum = exponent;
-                    else
+                    for (long i = lowerLimit + 1; i <= upperLimit; i++)
                     {
-                        var modPower = UtilityFunctions.ModPower(number, exponent, modBase);
-                        sum = ((((modPower - 1) * ((inverse + modBase) % modBase)) % modBase) * number) % modBase;
+                        var reduced = nonSquareFree.ContainsKey(i) ? nonSquareFree[i] % modBase : i % modBase;
+                        squareFreePart[reduced]++;
                     }
-                    solution[batch] = (solution[batch] + (sum) % modBase) % modBase;
                 }
-                nonSquareFree = null;
-                GC.Collect();      
-                lock (progress)
-                {
-                    progress[0]++;
-                }
-                Console.WriteLine($"{Math.Round(progress[0] * 100.0 / chunks,3)}% done.");
+               progress[0]++;
+               if (progress[0]%10000==0)
+                   Console.WriteLine($"{Math.Round(progress[0] * 100.0 / chunks,3)}% done.");
             });
-            long finalSolution = 0;
-            foreach (var s in solution)
-                finalSolution = (finalSolution + s) % modBase;
+            Parallel.For(1, modBase, i =>
+           {
+               var count = squareFreePart[i];
+               if (count > 0)
+               {
+                   var number = i;
 
-            return finalSolution;
+                   long sum;
+                   UtilityFunctions.Gcd(number - 1, modBase, out long inverse, out long dummy);
+                   if (inverse == 0)
+                       sum = exponent;
+                   else
+                   {
+                       var modPower = UtilityFunctions.ModPower(number, exponent, modBase);
+                       sum = ((((modPower - 1) * ((inverse + modBase) % modBase)) % modBase) * number) % modBase;
+                   }
+                   lock (solution)
+                   {
+                       solution[0] = (solution[0] + (sum * count) % modBase) % modBase;
+                   }
+               }
+           });
+
+            return solution[0];
         }
 
         
