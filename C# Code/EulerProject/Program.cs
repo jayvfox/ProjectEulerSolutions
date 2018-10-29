@@ -41,7 +41,7 @@ namespace ProjectEuler
                 }
                 stopwatch.Stop();
                 Console.WriteLine($"Modding took {stopwatch.ElapsedMilliseconds} milliseconds to run.");
-                Console.ReadKey();
+                Console.ReadLine();
             }
         }
     }
