@@ -8,41 +8,80 @@ namespace ProjectEuler
 {
     public class UtilityFunctions
     {
-    public static Dictionary<long, List<List<long>>> Partition(long n)
+        public static long PowerSum(long startNumber, long endNumber, int exponent)
         {
-            var partitionsDictionary = new Dictionary<long, List<List<long>>>();
-            partitionsDictionary.Add(0, new List<List<long>> { new List<long> {   } });
-            partitionsDictionary.Add(1, new List<List<long>> { new List<long> { 1 } });
-            
-            for (long k = 2; k<= n; k++)
+            var sums = new long[exponent+1];
+            sums[0] = endNumber - startNumber + 1;
+            for (int i = 1; i <= exponent; i++)
             {
-                partitionsDictionary.Add(k, new List<List<long>> { new List<long> { k } });
-                for (long firstBit = k-1; firstBit > 0; firstBit--)
+                long newSum = IntegralPower(endNumber + 1, i + 1) - IntegralPower(startNumber, i + 1);
+                for (int r = 0; r < i; r++)
                 {
-                    var eligiblePartitions = partitionsDictionary[k - firstBit].Where(p => p.Max() <= firstBit);
-                    
-                    foreach (var par in eligiblePartitions)
-                    {
-                        var thisPartition = new List<long>(par);
-                        thisPartition.Add(firstBit);
-                        partitionsDictionary[k].Add(thisPartition);
-                    }
+                    newSum -= Choose(i + 1, r) * sums[r];
                 }
+                sums[i] = newSum / (i + 1);
             }
-            return partitionsDictionary;
+            return sums[exponent];
         }
 
-    public static long Choose(long n, long k)
+        public static long PowerSum(long startNumber, long endNumber, long exponent, long modBase)
         {
-            if (k < 0 || k > n)
-                return 0;
-            if (2 * k > n)
-                return Choose(n, n - k);
-            long result = 1;
-            for (long i = 0; i < k; i++)
-                result = (result * (n - i)) / (i + 1);
-            return result;
+            startNumber = startNumber % modBase;
+            endNumber = endNumber % modBase;
+            var sums = new long[exponent + 1];
+            sums[0] = endNumber - startNumber + 1;
+            for (long i = 1; i <= exponent; i++)
+            {
+                long newSum = (ModPower(endNumber + 1, i + 1,modBase) - ModPower(startNumber, i + 1,modBase)) % modBase;
+                for (long r = 0; r < i; r++)
+                {
+                    newSum -= ((Choose(i + 1, r) % modBase) * sums[r]) % modBase;
+                }
+                Gcd(i + 1, modBase, out long inverse, out var dummy);
+                if (inverse == 0)
+                    sums[i] = sums[0];
+                else
+                    sums[i] = (newSum * inverse) % modBase;
+            }
+            return (sums[exponent] + modBase) % modBase;
         }
+
+
+        public static Dictionary<long, List<List<long>>> Partition(long n)
+            {
+                var partitionsDictionary = new Dictionary<long, List<List<long>>>();
+                partitionsDictionary.Add(0, new List<List<long>> { new List<long> {   } });
+                partitionsDictionary.Add(1, new List<List<long>> { new List<long> { 1 } });
+                
+                for (long k = 2; k<= n; k++)
+                {
+                    partitionsDictionary.Add(k, new List<List<long>> { new List<long> { k } });
+                    for (long firstBit = k-1; firstBit > 0; firstBit--)
+                    {
+                        var eligiblePartitions = partitionsDictionary[k - firstBit].Where(p => p.Max() <= firstBit);
+                        
+                        foreach (var par in eligiblePartitions)
+                        {
+                            var thisPartition = new List<long>(par);
+                            thisPartition.Add(firstBit);
+                            partitionsDictionary[k].Add(thisPartition);
+                        }
+                    }
+                }
+                return partitionsDictionary;
+            }
+
+        public static long Choose(long n, long k)
+            {
+                if (k < 0 || k > n)
+                    return 0;
+                if (2 * k > n)
+                    return Choose(n, n - k);
+                long result = 1;
+                for (long i = 0; i < k; i++)
+                    result = (result * (n - i)) / (i + 1);
+                return result;
+            }
 
         public static List<long> SumOfSquares(long p)
         {
@@ -415,7 +454,7 @@ namespace ProjectEuler
 
             while (exp > 0)
             {
-                if (exp % 2 == 1)
+                if ((exp & 1) == 1)
                     modPower = (modPower * a) % n;
                 exp >>= 1;
                 a = (a * a) % n;
