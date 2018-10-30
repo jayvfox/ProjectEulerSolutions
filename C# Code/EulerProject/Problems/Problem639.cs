@@ -10,16 +10,15 @@ namespace ProjectEuler
 {
     public class Problem639
     {
-        public static long limit = UtilityFunctions.IntegralPower(10,12);
-        public static int exponent = 50;
+        public static long limit = UtilityFunctions.IntegralPower(10,7);
+        public static int exponent = 3;
         public static long modBase = 1000000007;
         
-        public static long Solution0()
+        public static long Solution()
         {
             var stopwatch = new Stopwatch();
             long solution = 0;
             var primes = UtilityFunctions.Primes((int)Math.Sqrt(limit));
-            var squareFreePart = new long[modBase];
             var nonSquareFree = new Dictionary<long, long>();
 
             stopwatch.Restart();
@@ -45,42 +44,47 @@ namespace ProjectEuler
             stopwatch.Stop();
             Console.WriteLine($"Square-free part list took {stopwatch.ElapsedMilliseconds}.");
             stopwatch.Restart();
-            for (long i = 1; i <= limit; i++)
+            foreach (var key in nonSquareFree.Keys.ToArray())
             {
-                var item = nonSquareFree.ContainsKey(i)? nonSquareFree[i] % modBase : i % modBase;
-                if (item < i + 1)
-                {
-                    squareFreePart[item - 1]++;
-                    squareFreePart[i] = 0;
-                }
+                var value = key % modBase;
+                var newKey = nonSquareFree[key];
+                nonSquareFree.Remove(key);
+                if (nonSquareFree.ContainsKey(newKey))
+                    nonSquareFree[newKey]++;
                 else
-                    squareFreePart[i] = 1;
+                    nonSquareFree.Add(newKey, 1);
+                
+                if (nonSquareFree.ContainsKey(value))
+                    nonSquareFree[value]--;
+                else
+                    nonSquareFree.Add(value, -1);
             }
             stopwatch.Stop();
-            Console.WriteLine($"Reducing square-free list took {stopwatch.ElapsedMilliseconds}.");
+            Console.WriteLine($"Reducing list took {stopwatch.ElapsedMilliseconds}.");
 
             stopwatch.Restart();
-            for (long i = 0; i < Math.Min(modBase, limit); i++)
-            {
-                var count = squareFreePart[i];
-                if (count == 0)
-                    continue;
 
+            solution = PowerSum(1, limit, exponent, modBase);
+
+            foreach (var element in nonSquareFree)
+            {
+                var count = element.Value;
+                var number = element.Key;
                 long inverse, sum;
-                UtilityFunctions.Gcd(i, modBase, out inverse, out long dummy);
+                UtilityFunctions.Gcd(number-1, modBase, out inverse, out long dummy);
                 if (inverse == 0)
                     sum = exponent;
                 else
                 {
-                    var modPower = UtilityFunctions.ModPower(i + 1, exponent, modBase);
-                    sum = ((((modPower - 1) * ((inverse + modBase) % modBase)) % modBase) * (i + 1)) % modBase;
+                    var modPower = UtilityFunctions.ModPower(number, exponent, modBase);
+                    sum = ((((modPower - 1) * ((inverse + modBase) % modBase)) % modBase) * number) % modBase;
                 }
-                solution = (solution + (sum * count) % modBase) % modBase;
+                solution = (solution + sum * count) % modBase;
             }
             stopwatch.Stop();
             Console.WriteLine($"Processing took {stopwatch.ElapsedMilliseconds}.");
 
-            return solution;
+            return (solution + modBase) % modBase;
         }
 
         public static long Solution1()
@@ -118,7 +122,7 @@ namespace ProjectEuler
             return solution[0];
         }
 
-        public static long Solution()
+        public static long Solution0()
         {
             var chunks = Math.Max(limit/1000,1);
             
@@ -193,6 +197,32 @@ namespace ProjectEuler
             return solution[0];
         }
 
-        
+
+        public static long PowerSum(long startNumber, long endNumber, long exponent, long modBase)
+        {
+            startNumber = startNumber % modBase;
+            endNumber = endNumber % modBase;
+            var sums = new long[exponent + 1];
+            sums[0] = endNumber - startNumber + 1;
+            for (long i = 1; i <= exponent; i++)
+            {
+                long newSum = (UtilityFunctions.ModPower(endNumber + 1, i + 1, modBase) - UtilityFunctions.ModPower(startNumber, i + 1, modBase)) % modBase;
+                for (long r = 0; r < i; r++)
+                {
+                    newSum -= ((UtilityFunctions.Choose(i + 1, r) % modBase) * sums[r]) % modBase;
+                }
+                UtilityFunctions.Gcd(i + 1, modBase, out long inverse, out var dummy);
+                if (inverse == 0)
+                    sums[i] = sums[0];
+                else
+                    sums[i] = (newSum * inverse + modBase) % modBase;
+            }
+            long sum = 0;
+            for (int i = 1; i <= exponent; i++)
+                sum = (sum + sums[i] + modBase) % modBase;
+            return sum;
+        }
+
+
     }
 }
