@@ -34,12 +34,8 @@ namespace ProjectEuler
                 peter += tempPeter / peterCount;
                 
             }
-
-
-
-
-
-            return solution;
+            
+            return Math.Round(solution,7);
         }
 
 

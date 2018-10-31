@@ -16,7 +16,7 @@ namespace ProjectEuler
 
             solution = ExpectedNumberOfSingleSheets(startPosition);
 
-            return solution;
+            return Math.Round(solution,6);
         }
 
 
