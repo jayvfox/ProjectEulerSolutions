@@ -8,6 +8,99 @@ namespace ProjectEuler
 {
     public class UtilityFunctions
     {
+        public static List<long> Divisors(long n, List<Tuple<long,int>> primeFactors = null, List<long> primes = null)
+        {
+            var divisors = new List<long>();
+            divisors.Add(1);
+            if (primeFactors == null)
+                primeFactors = PrimeFactors(n,primes);
+            foreach (var p in primeFactors)
+            {
+                var prime = p.Item1;
+                var exponent = p.Item2;
+
+                var currentDivisors = divisors.ToArray();
+                foreach(var d in currentDivisors)
+                {
+                    var newDivisor = d;
+                    for (int i = 0; i < exponent; i++)
+                    {
+                        newDivisor *= prime;
+                        divisors.Add(newDivisor);
+                    }
+                }
+            }
+            divisors.Sort();
+            return divisors;
+        }
+
+        public static int Moebius(long n, List<Tuple<long,int>> primeFactors = null, List<long> primes = null)
+        {
+            if (n == 1)
+                return 1;
+            if (primeFactors != null)
+            {
+                foreach (var t in primeFactors)
+                {
+                    if (t.Item2 > 1)
+                        return 0;
+                }
+                return (primeFactors.Count % 2 == 1) ? 1 : -1;
+            }
+
+            if (primes == null)
+                primes = Primes((long)Math.Sqrt(n));
+            var exponentCount = 0;
+            bool primesCount = true;
+            foreach (var p in primes)
+            {
+                if (n == 1)
+                    break;
+                if (p * p > n)
+                    break;
+
+                exponentCount = 0;
+                while (n % p == 0)
+                {
+                    primesCount = !primesCount;
+                    exponentCount++;
+                    n /= p;
+                }
+                if (exponentCount > 1)
+                    return 0;
+            }
+            if (n > 1)
+                primesCount = !primesCount;
+            return primesCount ? 1 : -1;
+        }
+
+        public static List<Tuple<long, int>> PrimeFactors(long n, List<long> primes = null)
+        {
+            var factors = new List<Tuple<long, int>>();
+            if (primes == null)
+                primes = Primes((long)Math.Sqrt(n));
+            var exponentCount = 0;
+            foreach (var p in primes)
+            {
+                if (n == 1)
+                    break;
+                if (p * p > n)
+                {
+                    factors.Add(new Tuple<long, int>(n, 1));
+                    break;
+                }
+                exponentCount = 0;
+                while (n % p == 0)
+                {
+                    exponentCount++;
+                    n /= p;
+                }
+                if (exponentCount > 0)
+                    factors.Add(new Tuple<long, int>(p, exponentCount));
+            }
+            return factors;
+        }
+
         public static long PowerSum(long startNumber, long endNumber, int exponent)
         {
             var sums = new long[exponent+1];
@@ -296,46 +389,32 @@ namespace ProjectEuler
                     complement.Add(element);
             return complement;
         }
-
-        public static List<long> Primes(long B0, long lowerBound = 2)
+        
+        public static List<long> Primes(long upperLimit)
         {
-            // Sieve of Eratosthenes 
-            // find all prime numbers 
-            // less than or equal B0 
+            List<long> primes = new List<long>();
+            if (upperLimit == 1)
+                return primes;
+            primes.Add(2);
 
-            bool[] sieve = new bool[B0 + 1];
-            long c = 3, i, inc;
-
-            sieve[2] = true;
-
-            for (i = 3; i <= B0; i++)
-                if (i % 2 == 1)
-                    sieve[i] = true;
-
-            do
+            var half = (upperLimit - 1) / 2;
+            bool[] nums = new bool[half];
+            var limit = 46340; //(int)Math.Sqrt(int.MaxValue);
+            for (int i = 0; i < half; i++)
             {
-                i = c * c;
-                inc = c + c;
-
-                while (i <= B0)
+                if (!nums[i])
                 {
-                    sieve[i] = false;
-
-                    i += inc;
+                    var number = i * 2 + 3;
+                    primes.Add(number);
+                    if (number <= limit)
+                    {
+                        for (var j = ((number * number) / 2) - 1; j < half; j += number)
+                        {
+                            nums[j] = true;
+                        }
+                    }
                 }
-
-                c += 2;
-
-                while (c <= B0 && !sieve[c])
-                    c++;
-            } while (c * c <= B0);
-
-            var primes = new List<long>();
-
-            for (i = lowerBound; i <= B0; i++)
-                if (sieve[i])
-                    primes.Add(i);
-
+            }
             return primes;
         }
 
