@@ -12,6 +12,7 @@ namespace ProjectEuler
     {
         public static long lowerLimit = 10000000;
         public static long upperLimit = 2*lowerLimit;
+        public static Dictionary<int,int> costDictionary = new Dictionary<int, int>();
         const int zero = 0b1110111;
         const int one = 0b0010010;
         const int two = 0b1011101;
@@ -31,19 +32,24 @@ namespace ProjectEuler
             
             foreach (var p in primes)
             {
-                var number = p;
-                var digitSum = (int)UtilityFunctions.DigitSum(number);
-                
-                while (digitSum < number)
-                {
-                    solution += CostToChangeNumber(digitSum, (int)number);
-                    number = digitSum;
-                    digitSum =(int)UtilityFunctions.DigitSum(number);
-                }
-                
+                solution += TotalCostPerNumber((int)p);
             }
 
             return solution;
+        }
+
+        private static int TotalCostPerNumber(int number)
+        {
+            if (number < 10)
+                return 0;
+            if (costDictionary.ContainsKey(number))
+                return costDictionary[number];
+            
+            var digitSum = (int)UtilityFunctions.DigitSum(number);
+
+            var cost = CostToChangeNumber(digitSum, number) + TotalCostPerNumber(digitSum);
+            costDictionary.Add(number, cost);
+            return cost;            
         }
 
         private static int CostToChangeDigit(int a, int b)
