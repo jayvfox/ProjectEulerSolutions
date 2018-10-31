@@ -7,8 +7,9 @@ namespace ProjectEuler
 {
     public class Problem152
     {
+        //TODO: This is not the way to do it - find a more efficient way. 
         public static long limit = 80;
-        public static List<long> primes = UtilityFunctions.Primes(limit, limit / 2);
+        public static List<long> primes = UtilityFunctions.Primes(limit);
         public static long Solution()
         {
             long solution = 0;

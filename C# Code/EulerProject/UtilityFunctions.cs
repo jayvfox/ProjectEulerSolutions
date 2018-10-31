@@ -2,22 +2,179 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
+using System.Linq;
 
 namespace ProjectEuler
 {
     public class UtilityFunctions
     {
-
-    
-        public static long Choose(long n, long k)
+        public static List<long> Divisors(long n, List<Tuple<long,int>> primeFactors = null, List<long> primes = null)
         {
-            if (2 * k > n)
-                return Choose(n, n - k);
-            long result = 1;
-            for (long i = 0; i < k; i++)
-                result = (result * (n - i)) / (i + 1);
-            return result;
+            var divisors = new List<long>();
+            divisors.Add(1);
+            if (primeFactors == null)
+                primeFactors = PrimeFactors(n,primes);
+            foreach (var p in primeFactors)
+            {
+                var prime = p.Item1;
+                var exponent = p.Item2;
+
+                var currentDivisors = divisors.ToArray();
+                foreach(var d in currentDivisors)
+                {
+                    var newDivisor = d;
+                    for (int i = 0; i < exponent; i++)
+                    {
+                        newDivisor *= prime;
+                        divisors.Add(newDivisor);
+                    }
+                }
+            }
+            divisors.Sort();
+            return divisors;
         }
+
+        public static int Moebius(long n, List<Tuple<long,int>> primeFactors = null, List<long> primes = null)
+        {
+            if (n == 1)
+                return 1;
+            if (primeFactors != null)
+            {
+                foreach (var t in primeFactors)
+                {
+                    if (t.Item2 > 1)
+                        return 0;
+                }
+                return (primeFactors.Count % 2 == 1) ? 1 : -1;
+            }
+
+            if (primes == null)
+                primes = Primes((long)Math.Sqrt(n));
+            var exponentCount = 0;
+            bool primesCount = true;
+            foreach (var p in primes)
+            {
+                if (n == 1)
+                    break;
+                if (p * p > n)
+                    break;
+
+                exponentCount = 0;
+                while (n % p == 0)
+                {
+                    primesCount = !primesCount;
+                    exponentCount++;
+                    n /= p;
+                }
+                if (exponentCount > 1)
+                    return 0;
+            }
+            if (n > 1)
+                primesCount = !primesCount;
+            return primesCount ? 1 : -1;
+        }
+
+        public static List<Tuple<long, int>> PrimeFactors(long n, List<long> primes = null)
+        {
+            var factors = new List<Tuple<long, int>>();
+            if (primes == null)
+                primes = Primes((long)Math.Sqrt(n));
+            var exponentCount = 0;
+            foreach (var p in primes)
+            {
+                if (n == 1)
+                    break;
+                if (p * p > n)
+                {
+                    factors.Add(new Tuple<long, int>(n, 1));
+                    break;
+                }
+                exponentCount = 0;
+                while (n % p == 0)
+                {
+                    exponentCount++;
+                    n /= p;
+                }
+                if (exponentCount > 0)
+                    factors.Add(new Tuple<long, int>(p, exponentCount));
+            }
+            return factors;
+        }
+
+        public static long PowerSum(long startNumber, long endNumber, int exponent)
+        {
+            var sums = new long[exponent+1];
+            sums[0] = endNumber - startNumber + 1;
+            for (int i = 1; i <= exponent; i++)
+            {
+                long newSum = IntegralPower(endNumber + 1, i + 1) - IntegralPower(startNumber, i + 1);
+                for (int r = 0; r < i; r++)
+                {
+                    newSum -= Choose(i + 1, r) * sums[r];
+                }
+                sums[i] = newSum / (i + 1);
+            }
+            return sums[exponent];
+        }
+
+        public static long PowerSum(long startNumber, long endNumber, long exponent, long modBase)
+        {
+            startNumber = startNumber % modBase;
+            endNumber = endNumber % modBase;
+            var sums = new long[exponent + 1];
+            sums[0] = endNumber - startNumber + 1;
+            for (long i = 1; i <= exponent; i++)
+            {
+                long newSum = (ModPower(endNumber + 1, i + 1,modBase) - ModPower(startNumber, i + 1,modBase)) % modBase;
+                for (long r = 0; r < i; r++)
+                {
+                    newSum -= ((Choose(i + 1, r) % modBase) * sums[r]) % modBase;
+                }
+                Gcd(i + 1, modBase, out long inverse, out var dummy);
+                if (inverse == 0)
+                    sums[i] = sums[0];
+                else
+                    sums[i] = (newSum * inverse) % modBase;
+            }
+            return (sums[exponent] + modBase) % modBase;
+        }
+
+
+        public static Dictionary<long, List<List<long>>> Partition(long n)
+            {
+                var partitionsDictionary = new Dictionary<long, List<List<long>>>();
+                partitionsDictionary.Add(0, new List<List<long>> { new List<long> {   } });
+                partitionsDictionary.Add(1, new List<List<long>> { new List<long> { 1 } });
+                
+                for (long k = 2; k<= n; k++)
+                {
+                    partitionsDictionary.Add(k, new List<List<long>> { new List<long> { k } });
+                    for (long firstBit = k-1; firstBit > 0; firstBit--)
+                    {
+                        var eligiblePartitions = partitionsDictionary[k - firstBit].Where(p => p.Max() <= firstBit);
+                        
+                        foreach (var par in eligiblePartitions)
+                        {
+                            var thisPartition = new List<long>(par);
+                            thisPartition.Add(firstBit);
+                            partitionsDictionary[k].Add(thisPartition);
+                        }
+                    }
+                }
+                return partitionsDictionary;
+            }
+
+        public static long Choose(long n, long k)
+            {
+                if (k < 0 || k > n)
+                    return 0;
+                if (2 * k > n)
+                    return Choose(n, n - k);
+                long result = 1;
+                for (long i = 0; i < k; i++)
+                    result = (result * (n - i)) / (i + 1);
+                return result;
+            }
 
         public static List<long> SumOfSquares(long p)
         {
@@ -192,6 +349,33 @@ namespace ProjectEuler
             return permutations;
         }
 
+        public static List<List<int>> GeneratePermutations(List<int> elements, long length)
+        {
+            if (length == -1)
+                length = elements.Count;
+            var permutations = new List<List<int>>();
+            if (elements == null || length == 0 || length > elements.Count)
+                return permutations;
+            if (length == 1)
+            {
+                foreach (var element in elements)
+                    permutations.Add(new List<int> { element });
+                return permutations;
+            }
+            foreach (var item in elements)
+            {
+                var subSet = new List<int>(elements);
+                subSet.Remove(item);
+                var permutationsOfSubset = GeneratePermutations(subSet, length - 1);
+                for (int i = 0; i < permutationsOfSubset.Count; i++)
+                {
+                    permutationsOfSubset[i].Add(item);
+                    permutations.Add(permutationsOfSubset[i]);
+                }
+            }
+            return permutations;
+        }
+
         public static List<string> GeneratePermutations(List<string> elements)
         {
             return GeneratePermutations(elements,elements.Count);
@@ -232,46 +416,32 @@ namespace ProjectEuler
                     complement.Add(element);
             return complement;
         }
-
-        public static List<long> Primes(long B0, long lowerBound = 2)
+        
+        public static List<long> Primes(long upperLimit)
         {
-            // Sieve of Eratosthenes 
-            // find all prime numbers 
-            // less than or equal B0 
+            List<long> primes = new List<long>();
+            if (upperLimit == 1)
+                return primes;
+            primes.Add(2);
 
-            bool[] sieve = new bool[B0 + 1];
-            long c = 3, i, inc;
-
-            sieve[2] = true;
-
-            for (i = 3; i <= B0; i++)
-                if (i % 2 == 1)
-                    sieve[i] = true;
-
-            do
+            var half = (upperLimit - 1) / 2;
+            bool[] nums = new bool[half];
+            var limit = 46340; //(int)Math.Sqrt(int.MaxValue);
+            for (int i = 0; i < half; i++)
             {
-                i = c * c;
-                inc = c + c;
-
-                while (i <= B0)
+                if (!nums[i])
                 {
-                    sieve[i] = false;
-
-                    i += inc;
+                    var number = i * 2 + 3;
+                    primes.Add(number);
+                    if (number <= limit)
+                    {
+                        for (var j = ((number * number) / 2) - 1; j < half; j += number)
+                        {
+                            nums[j] = true;
+                        }
+                    }
                 }
-
-                c += 2;
-
-                while (c <= B0 && !sieve[c])
-                    c++;
-            } while (c * c <= B0);
-
-            var primes = new List<long>();
-
-            for (i = lowerBound; i <= B0; i++)
-                if (sieve[i])
-                    primes.Add(i);
-
+            }
             return primes;
         }
 
@@ -390,10 +560,10 @@ namespace ProjectEuler
 
             while (exp > 0)
             {
-                if (exp % 2 == 1)
-                    modPower = (modPower * a % n);
+                if ((exp & 1) == 1)
+                    modPower = (modPower * a) % n;
                 exp >>= 1;
-                a = a * a % n;
+                a = (a * a) % n;
             }
             return modPower;
          }
@@ -415,6 +585,12 @@ namespace ProjectEuler
                 var tempY = y[0] - m * y[1];
                 x[0] = x[1]; x[1] = tempX;
                 y[0] = y[1]; y[1] = tempY;
+            }
+            if (a < 0)
+            {
+                inverseA = -x[0];
+                inverseB = -y[0];
+                return -a;
             }
             inverseA = x[0];
             inverseB = y[0];

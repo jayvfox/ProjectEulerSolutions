@@ -318,6 +318,18 @@ namespace ProjectEuler.Test
             Assert.Equal(expected, actual);
         }
 
+         [Fact]
+        public void Problem205()
+        {
+            //Arrange
+            var expected = 0.5731441;
+
+            //Act
+            var actual = Math.Round(ProjectEuler.Problem205.Solution(),7);
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
         [Fact]
         public void Problem206()
         {
@@ -326,6 +338,54 @@ namespace ProjectEuler.Test
 
             //Act
             var actual = ProjectEuler.Problem206.Solution();
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Problem301()
+        {
+            //Arrange
+            var expected = 2178309;
+
+            //Act
+            var actual = ProjectEuler.Problem301.Solution();
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Problem345()
+        {
+            //Arrange
+            var expected = 13938;
+
+            //Act
+            var actual = ProjectEuler.Problem345.Solution();
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Problem346()
+        {
+            //Arrange
+            var expected = 336108797689259276;
+
+            //Act
+            var actual = ProjectEuler.Problem346.Solution();
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+                
+         [Fact]
+        public void Problem347()
+        {
+            //Arrange
+            var expected = 11109800204052;
+
+            //Act
+            var actual = ProjectEuler.Problem347.Solution();
             //Assert
             Assert.Equal(expected, actual);
         }
@@ -354,6 +414,19 @@ namespace ProjectEuler.Test
             Assert.Equal(expected, actual);
         }
 
+        
+        [Fact]
+        public void Problem381()
+        {
+            //Arrange
+            var expected = 139602943319822;
+
+            //Act
+            var actual = ProjectEuler.Problem381.Solution();
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
         [Fact]
         public void Problem493()
         {
@@ -362,6 +435,54 @@ namespace ProjectEuler.Test
 
             //Act
             var actual = Math.Round(ProjectEuler.Problem493.Solution(),9);
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Problem500()
+        {
+            //Arrange
+            var expected = 35407281;
+
+            //Act
+            var actual = ProjectEuler.Problem500.Solution();
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Problem504()
+        {
+            //Arrange
+            var expected = 694687;
+
+            //Act
+            var actual = ProjectEuler.Problem504.Solution();
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Problem549()
+        {
+            //Arrange
+            var expected = 476001479068717;
+
+            //Act
+            var actual = ProjectEuler.Problem549.Solution();
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Problem622()
+        {
+            //Arrange
+            var expected = 3010983666182123972;
+
+            //Act
+            var actual = ProjectEuler.Problem622.Solution();
             //Assert
             Assert.Equal(expected, actual);
         }

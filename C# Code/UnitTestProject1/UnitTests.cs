@@ -9,6 +9,96 @@ namespace ProjectEuler.Test
     public class UnitTests
     {
 
+        [Fact]
+        public static void GeneratePermutationsTest()
+        {
+            //Arrange
+            var elements  = new List<int> { 1, 2, 3, 4};
+            var expected = new List<List<int>> { new List<int> {2,1 }, new List<int> { 3, 1 }, new List<int> { 4, 1 },
+                new List<int> {1,2 }, new List<int> { 3, 2 }, new List<int> { 4, 2 },
+                new List<int> {1,3 }, new List<int> { 2, 3 }, new List<int> { 4, 3 },
+                new List<int> {1,4 }, new List<int> { 2, 4 }, new List<int> { 3, 4 },
+            };
+
+            //Act
+            var actual = UtilityFunctions.GeneratePermutations(elements,2);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(1, 1)]
+        [InlineData(24, 0)]
+        [InlineData(1681, 0)]
+        [InlineData(15, 1)]
+        [InlineData(105, -1)]
+        [InlineData(210, 1)]
+        [InlineData(3672663, -1)]
+        public static void MoebiusTest(long n, int expected)
+        {
+            //Act
+            var actual = UtilityFunctions.Moebius(n);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public static void DivisorTest()
+        {
+            //Arrange
+            long n = 540;
+            var expected = new List<long> { 1, 2, 3, 4, 5, 6, 9, 10, 12, 15, 18, 20, 27, 30, 36, 45, 54, 60, 90, 108, 135, 180, 270 , 540};
+
+            //Act
+            var actual = UtilityFunctions.Divisors(n);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public static void FactorisationTest()
+        {
+            //Arrange
+            long n = 76905467955;
+            var expected = new List<Tuple<long, int>> { new Tuple<long, int>(3,3), new Tuple<long, int>(5,1), new Tuple<long, int>(71,1), new Tuple<long, int>(8023523,1) };
+
+            //Act
+            var actual = UtilityFunctions.PrimeFactors(n);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
+        [Theory]
+        [InlineData(1, 100, 1, 5050)]
+        [InlineData(1, 100, 2, 338350)]
+        [InlineData(5, 10, 4, 24979)]
+        public static void PowerSumTest(long a, long b, int exponent, long expected)
+        {
+            //Act
+            var actual = UtilityFunctions.PowerSum(a, b, exponent);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(1, 100, 1, 5050 % 101)]
+        [InlineData(1, 100, 2, 338350 % 101)]
+        [InlineData(5, 10, 4, 24979 % 101)]
+        public static void PowerSumModdedTest(long a, long b, int exponent, long expected)
+        {
+            //Act
+            var actual = UtilityFunctions.PowerSum(a, b, exponent, 101);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
         [Theory]
         [InlineData(50, 7, 8)]
         [InlineData(200, 5, 49)]
@@ -334,6 +424,21 @@ namespace ProjectEuler.Test
             //Assert
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(5, 4, new long[] { 1, 2, 2 })]
+        [InlineData(10, 7, new long[] { 4, 6})]
+        [InlineData(10, 16, new long[] { 1, 2, 2, 5 })]
+        public void PartitionTest(long n, int position, long[] expected)
+        {
+            //Act
+            var actual = UtilityFunctions.Partition(n)[n][position].ToArray();
+
+            //Assert
+            Assert.Equal(expected, actual);
+            
+        }
+
 
     }
 }
