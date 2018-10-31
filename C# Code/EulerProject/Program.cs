@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace ProjectEuler
 {
@@ -20,24 +21,33 @@ namespace ProjectEuler
 
         static void TimeStuff()
         {
+
+            
             var stopwatch = new Stopwatch();
             while (true)
             {
-                var limit = 10000000;
-                long sum = 0;
+                var limit = 100000000;
                 stopwatch.Start();
-                for (int i = 1; i <= limit; i++)
-                {
-                    sum = (sum + UtilityFunctions.ModPower(i,50,1000000007)) % 1000000007;
-                }
+                var primes3 = UtilityFunctions.Primes(limit);
                 stopwatch.Stop();
-                Console.WriteLine($"Summing took {stopwatch.ElapsedMilliseconds} milliseconds to run: {sum}");
+                Console.WriteLine($"Primes3 took {stopwatch.ElapsedMilliseconds} milliseconds to run.");
                 stopwatch.Reset();
-                sum = 0;
+
                 stopwatch.Start();
-                sum = UtilityFunctions.PowerSum(1, limit, 50, 1000000007);
+                var primes2 = UtilityFunctions.Primes(limit);
                 stopwatch.Stop();
-                Console.WriteLine($"Formula took {stopwatch.ElapsedMilliseconds} milliseconds to run: {sum}");
+                Console.WriteLine($"Primes2 took {stopwatch.ElapsedMilliseconds} milliseconds to run.");
+                stopwatch.Reset();
+
+                stopwatch.Start();
+                var primes1 = UtilityFunctions.Primes(limit);
+                stopwatch.Stop();
+                Console.WriteLine($"Primes1 took {stopwatch.ElapsedMilliseconds} milliseconds to run.");
+                stopwatch.Reset();
+
+                
+
+               
                 Console.ReadLine();
             }
         }

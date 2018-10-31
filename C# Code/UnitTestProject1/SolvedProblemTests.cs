@@ -419,7 +419,7 @@ namespace ProjectEuler.Test
         public void Problem493()
         {
             //Arrange
-            var expected = 35407281;
+            var expected = 6.818741802;
 
             //Act
             var actual = Math.Round(ProjectEuler.Problem493.Solution(),9);
@@ -459,6 +459,18 @@ namespace ProjectEuler.Test
 
             //Act
             var actual = ProjectEuler.Problem549.Solution();
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Problem622()
+        {
+            //Arrange
+            var expected = 3010983666182123972;
+
+            //Act
+            var actual = ProjectEuler.Problem622.Solution();
             //Assert
             Assert.Equal(expected, actual);
         }

@@ -8,6 +8,54 @@ namespace ProjectEuler.Test
 {
     public class UnitTests
     {
+
+        [Theory]
+        [InlineData(1, 1)]
+        [InlineData(24, 0)]
+        [InlineData(1681, 0)]
+        [InlineData(15, 1)]
+        [InlineData(105, -1)]
+        [InlineData(210, 1)]
+        [InlineData(3672663, -1)]
+
+        public static void MoebiusTest(long n, int expected)
+        {
+            //Act
+            var actual = UtilityFunctions.Moebius(n);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public static void DivisorTest()
+        {
+            //Arrange
+            long n = 540;
+            var expected = new List<long> { 1, 2, 3, 4, 5, 6, 9, 10, 12, 15, 18, 20, 27, 30, 36, 45, 54, 60, 90, 108, 135, 180, 270 , 540};
+
+            //Act
+            var actual = UtilityFunctions.Divisors(n);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public static void FactorisationTest()
+        {
+            //Arrange
+            long n = 76905467955;
+            var expected = new List<Tuple<long, int>> { new Tuple<long, int>(3,3), new Tuple<long, int>(5,1), new Tuple<long, int>(71,1), new Tuple<long, int>(8023523,1) };
+
+            //Act
+            var actual = UtilityFunctions.PrimeFactors(n);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+
         [Theory]
         [InlineData(1, 100, 1, 5050)]
         [InlineData(1, 100, 2, 338350)]
