@@ -9,6 +9,24 @@ namespace ProjectEuler.Test
     public class UnitTests
     {
 
+        [Fact]
+        public static void GeneratePermutationsTest()
+        {
+            //Arrange
+            var elements  = new List<int> { 1, 2, 3, 4};
+            var expected = new List<List<int>> { new List<int> {2,1 }, new List<int> { 3, 1 }, new List<int> { 4, 1 },
+                new List<int> {1,2 }, new List<int> { 3, 2 }, new List<int> { 4, 2 },
+                new List<int> {1,3 }, new List<int> { 2, 3 }, new List<int> { 4, 3 },
+                new List<int> {1,4 }, new List<int> { 2, 4 }, new List<int> { 3, 4 },
+            };
+
+            //Act
+            var actual = UtilityFunctions.GeneratePermutations(elements,2);
+
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
         [Theory]
         [InlineData(1, 1)]
         [InlineData(24, 0)]
@@ -17,7 +35,6 @@ namespace ProjectEuler.Test
         [InlineData(105, -1)]
         [InlineData(210, 1)]
         [InlineData(3672663, -1)]
-
         public static void MoebiusTest(long n, int expected)
         {
             //Act

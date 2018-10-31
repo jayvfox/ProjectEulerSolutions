@@ -349,6 +349,33 @@ namespace ProjectEuler
             return permutations;
         }
 
+        public static List<List<int>> GeneratePermutations(List<int> elements, long length)
+        {
+            if (length == -1)
+                length = elements.Count;
+            var permutations = new List<List<int>>();
+            if (elements == null || length == 0 || length > elements.Count)
+                return permutations;
+            if (length == 1)
+            {
+                foreach (var element in elements)
+                    permutations.Add(new List<int> { element });
+                return permutations;
+            }
+            foreach (var item in elements)
+            {
+                var subSet = new List<int>(elements);
+                subSet.Remove(item);
+                var permutationsOfSubset = GeneratePermutations(subSet, length - 1);
+                for (int i = 0; i < permutationsOfSubset.Count; i++)
+                {
+                    permutationsOfSubset[i].Add(item);
+                    permutations.Add(permutationsOfSubset[i]);
+                }
+            }
+            return permutations;
+        }
+
         public static List<string> GeneratePermutations(List<string> elements)
         {
             return GeneratePermutations(elements,elements.Count);
