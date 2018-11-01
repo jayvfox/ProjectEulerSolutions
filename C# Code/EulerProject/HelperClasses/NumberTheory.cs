@@ -210,21 +210,17 @@ namespace ProjectEuler.HelperClasses
         }
 
         /// <summary>
-        /// Computes the largest power of p which divides k!.
+        /// Computes the largest power of prime p which divides k!.
         /// </summary>
         /// <param name="k"></param>
         /// <param name="p"></param>
         /// <returns></returns>
         public static long LargestPowerDividingFactorial(long k, long p)
         {
-            if (!PrimeTools.IsPrime(p))
-                throw new ArgumentException("Base number must be prime.");
             long power = 0;
-            while (k > 0)
-            {
-                power += k / p;
-                k = k / p;
-            }
+            while ((k = k/p) > 0)
+                power += k;
+
             return power;
         }
 
