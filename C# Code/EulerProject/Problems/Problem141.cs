@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using ProjectEuler.HelperClasses;
 
 
 
@@ -22,7 +22,7 @@ namespace ProjectEuler
                 var step = 2 - (m % 2);
                 for (long r = 1; r < m; r += step)
                 {
-                    if (UtilityFunctions.Gcd(m, r) != 1)
+                    if (NumberTheory.Gcd(m, r) != 1)
                         continue;
                     if (m * m * m * r + r * r >= limit)
                         break;
@@ -31,7 +31,7 @@ namespace ProjectEuler
                         long n = k * k * m * m * m * r + k * r * r;
                         if (n >= limit)
                             break;
-                        if (UtilityFunctions.IsPerfectSquare(n))
+                        if (NumberTheory.IsPerfectSquare(n))
                         {
                             if (!squares.Contains(n))
                             {

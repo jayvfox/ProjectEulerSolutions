@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-
+using ProjectEuler.HelperClasses;
 
 namespace ProjectEuler
 {
@@ -13,10 +10,10 @@ namespace ProjectEuler
         {
             long solution = 0;
 
-            var primes = UtilityFunctions.Primes(limit);
+            var primes = PrimeTools.Primes(limit);
             foreach (var p in primes)
             {
-                var ord = UtilityFunctions.MultiplicativeOrder(10, 9 * p);
+                var ord = NumberTheory.MultiplicativeOrder(10, 9 * p);
                 if (ord == 0)
                 {
                     solution += p;

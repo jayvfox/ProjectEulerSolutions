@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ProjectEuler.HelperClasses;
 
 
 namespace ProjectEuler
@@ -18,8 +19,8 @@ namespace ProjectEuler
             long totalColin = 0;
             long totalPeter = 0;
 
-            var peterCount = (double)UtilityFunctions.IntegralPower(4, 9);
-            var colinCount = (double)UtilityFunctions.IntegralPower(6, 6);
+            var peterCount = (double)NumberTheory.IntegralPower(4, 9);
+            var colinCount = (double)NumberTheory.IntegralPower(6, 6);
 
             for (int n = 36; n >=6; n--)
             {

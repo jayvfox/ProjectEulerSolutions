@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using ProjectEuler.HelperClasses;
 
 
 namespace ProjectEuler
@@ -9,7 +9,7 @@ namespace ProjectEuler
     {
         //TODO: This is not the way to do it - find a more efficient way. 
         public static long limit = 80;
-        public static List<long> primes = UtilityFunctions.Primes(limit);
+        public static List<long> primes = PrimeTools.Primes(limit);
         public static long Solution()
         {
             long solution = 0;
@@ -34,7 +34,7 @@ namespace ProjectEuler
 
             long newNumerator = numerator * lowerLimit * lowerLimit - denominator;
             long newDenominator = denominator * lowerLimit * lowerLimit;
-            var gcd = UtilityFunctions.Gcd(newNumerator, newDenominator);
+            var gcd = NumberTheory.Gcd(newNumerator, newDenominator);
 
             long containsLowerLimit = NumberOfWays(newNumerator / gcd, newDenominator / gcd, lowerLimit + 1, upperLimit);
             long doesNotContainLowerLimit = NumberOfWays(numerator, denominator, lowerLimit + 1, upperLimit);

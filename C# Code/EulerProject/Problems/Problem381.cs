@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ProjectEuler.HelperClasses;
 
 
 namespace ProjectEuler
@@ -10,16 +11,16 @@ namespace ProjectEuler
     /// </summary>
     public class Problem381
     {
-        public static long limit = UtilityFunctions.IntegralPower(10,8);
+        public static long limit = NumberTheory.IntegralPower(10,8);
         public static long Solution()
         {
             long solution = 0;
 
-            var primes = UtilityFunctions.Primes(limit);
+            var primes = PrimeTools.Primes(limit);
 
             foreach (var p in primes.Where(t => t > 4))
             {
-                UtilityFunctions.Gcd(-24, p, out long inverse, out var dummy);
+                var inverse = NumberTheory.ModularInverse(-24, p);
 
                 var residue = ((inverse + p) * 9) % p;
                 solution += (residue % p);

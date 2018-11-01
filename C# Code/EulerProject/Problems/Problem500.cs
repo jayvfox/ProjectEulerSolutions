@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Diagnostics;
+using ProjectEuler.HelperClasses;
 
 
 namespace ProjectEuler
@@ -11,10 +11,9 @@ namespace ProjectEuler
         public static long limit = 500500;
         public static long Solution()
         {
-            var stopwatch = new Stopwatch();
             long solution = 1;
             var exponents = new List<int>();
-            var primes = UtilityFunctions.Primes(7376512);
+            var primes = PrimeTools.Primes(7376512);
             var candidates = new List<long> { 1 };
 
             for (int i = 0; i < primes.Count; i++)
@@ -44,7 +43,6 @@ namespace ProjectEuler
             foreach (var t in candidates.Concat(primes))
                 solution = (solution * t) % 500500507;
             
-            Console.WriteLine($"Time spent finding max {stopwatch.ElapsedMilliseconds}");
             return solution;
         }
     }

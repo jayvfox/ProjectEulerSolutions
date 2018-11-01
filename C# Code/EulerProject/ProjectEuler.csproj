@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{88D4F200-F761-4AEB-A29C-BCA31D7C31BB}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>EulerProject</RootNamespace>
-    <AssemblyName>EulerProject</AssemblyName>
+    <RootNamespace>ProjectEuler</RootNamespace>
+    <AssemblyName>ProjectEuler</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -51,6 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HelperClasses\Algebra.cs" />
+    <Compile Include="HelperClasses\Combinatorics.cs" />
+    <Compile Include="HelperClasses\Constants.cs" />
+    <Compile Include="HelperClasses\NumberTheory.cs" />
+    <Compile Include="HelperClasses\PrimeTools.cs" />
     <Compile Include="Problems\Problem130.cs" />
     <Compile Include="Problems\Problem131.cs" />
     <Compile Include="Problems\Problem132.cs" />
@@ -92,6 +97,8 @@
     <Compile Include="Problems\Problem345.cs" />
     <Compile Include="Problems\Problem315.cs" />
     <Compile Include="Problems\Problem323.cs" />
+    <Compile Include="Problems\Problem407.cs" />
+    <Compile Include="Problems\Problem429.cs" />
     <Compile Include="Problems\ProblemTemplate.cs" />
     <Compile Include="Problems\Problem129.cs" />
     <Compile Include="Problems\Problem118.cs" />
@@ -103,8 +110,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="HelperClasses\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

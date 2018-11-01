@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
+using ProjectEuler.HelperClasses;
 
 
 namespace ProjectEuler
@@ -18,14 +19,14 @@ namespace ProjectEuler
             var previousTime = 0.0;
             var currentTime = 0.0;
 
-            var primes = UtilityFunctions.Primes(1000000);
+            var primes = PrimeTools.Primes(1000000);
             currentTime = stopwatch.ElapsedMilliseconds;
             Console.WriteLine($"Settig up took {currentTime - previousTime} milliseconds.");
             previousTime = currentTime;
 
             foreach (var p in primes)
             {
-                var order = UtilityFunctions.MultiplicativeOrder(10, 9 * p);
+                var order = NumberTheory.MultiplicativeOrder(10, 9 * p);
                 if (order == 0) continue;
                 if (limit % order == 0)
                 {

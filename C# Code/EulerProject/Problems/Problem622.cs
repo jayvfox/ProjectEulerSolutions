@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ProjectEuler.HelperClasses;
 
 
 namespace ProjectEuler
@@ -20,18 +21,18 @@ namespace ProjectEuler
             var stopwatch = new System.Diagnostics.Stopwatch();
             long solution = 0;
 
-            var divisorsOfOrder = UtilityFunctions.Divisors(order);
-            var primes = UtilityFunctions.Primes((int)Math.Sqrt(UtilityFunctions.IntegralPower(2, order/2) + 1));
+            var divisorsOfOrder = NumberTheory.Divisors(order);
+            var primes = PrimeTools.Primes((int)Math.Sqrt(NumberTheory.IntegralPower(2, order/2) + 1));
             
-            var primeFactors = UtilityFunctions.PrimeFactors(UtilityFunctions.IntegralPower(2, order) - 1,primes);
+            var primeFactors = NumberTheory.PrimeFactors(NumberTheory.IntegralPower(2, order) - 1,primes);
             var reducedPrimes = primeFactors.Select(t => t.Item1).ToList();
 
             foreach (var d in divisorsOfOrder)
             {
-                var m = UtilityFunctions.Moebius(d,null, primes);
+                var m = NumberTheory.Moebius(d,null, primes);
                 if (m != 0)
                 {
-                    var divisorsOfPowerOfTwo = UtilityFunctions.Divisors(UtilityFunctions.IntegralPower(2, order / d) - 1, null, reducedPrimes);
+                    var divisorsOfPowerOfTwo = NumberTheory.Divisors(NumberTheory.IntegralPower(2, order / d) - 1, null, reducedPrimes);
                     solution += (divisorsOfPowerOfTwo.Sum() + divisorsOfPowerOfTwo.Count()) * m;
                 }
             }
@@ -42,8 +43,8 @@ namespace ProjectEuler
         public static long Solution1()
         {
             long solution = 0;
-            long power = UtilityFunctions.IntegralPower(2, order) - 1;
-            var primes = UtilityFunctions.Primes(UtilityFunctions.IntegralPower(2,order/4));
+            long power = NumberTheory.IntegralPower(2, order) - 1;
+            var primes = PrimeTools.Primes(NumberTheory.IntegralPower(2,order/4));
             var primeFactors = new List<long>();
             var ordersModP = new List<long>();
             var powersOfTwo = new Dictionary<long,long>();
@@ -54,9 +55,9 @@ namespace ProjectEuler
             {
                 if (order % i == 0)
                 {
-                    powersOfTwo.Add(i,UtilityFunctions.IntegralPower(2,i)-1);
+                    powersOfTwo.Add(i,NumberTheory.IntegralPower(2,i)-1);
                     if (i*i != order)
-                        powersOfTwo.Add(order/i,UtilityFunctions.IntegralPower(2, order/i) - 1);
+                        powersOfTwo.Add(order/i,NumberTheory.IntegralPower(2, order/i) - 1);
                 }
             }
 
@@ -111,7 +112,7 @@ namespace ProjectEuler
                 {
                     var newKey = key * primeFactors[i];
                     if (!factors.ContainsKey(newKey))
-                        factors.Add(newKey, UtilityFunctions.Lcm(factors[key], ordersModP[i]));
+                        factors.Add(newKey, NumberTheory.Lcm(factors[key], ordersModP[i]));
                 }
             }
 

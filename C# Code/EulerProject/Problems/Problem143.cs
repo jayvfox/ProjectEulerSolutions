@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using ProjectEuler.HelperClasses;
 
 namespace ProjectEuler
 {
@@ -19,7 +19,7 @@ namespace ProjectEuler
                 var stepSize = 2 - (m % 2);
                 for (long n = 1; n < m; n+=stepSize)
                 {
-                    if (UtilityFunctions.Gcd(m, n) != 1 || (m - n % 3) == 0)
+                    if (NumberTheory.Gcd(m, n) != 1 || (m - n % 3) == 0)
                         continue;
                         
                     var firstSide = 2 * m * n + n * n;
@@ -104,7 +104,7 @@ namespace ProjectEuler
                     }
         
                     var aSquare = (p * p + q * q + p*q);
-                    if (!UtilityFunctions.IsPerfectSquare(aSquare))
+                    if (!NumberTheory.IsPerfectSquare(aSquare))
                         continue;
                         if (validPairs.ContainsKey(p))
                         {

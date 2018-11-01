@@ -6,7 +6,7 @@ namespace ProjectEuler.Test
     public class SolvedProblemTests
     {
         [Fact]
-        public void Problem118()
+        public static void Problem118()
         {
             //Arrange
             var expected = 44680;
@@ -19,7 +19,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem129()
+        public static void Problem129()
         {
             //Arrange
             var expected = 1000023;
@@ -32,7 +32,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem130()
+        public static void Problem130()
         {
             //Arrange
             var expected = 149253;
@@ -45,7 +45,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem131()
+        public static void Problem131()
         {
             //Arrange
             var expected = 173;
@@ -58,7 +58,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem132()
+        public static void Problem132()
         {
             //Arrange
             var expected = 843296;
@@ -71,7 +71,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem133()
+        public static void Problem133()
         {
             //Arrange
             var expected = 453647705;
@@ -84,7 +84,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem134()
+        public static void Problem134()
         {
             //Arrange
             var expected = 18613426663617118;
@@ -97,7 +97,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem135()
+        public static void Problem135()
         {
             //Arrange
             var expected = 4989;
@@ -111,7 +111,7 @@ namespace ProjectEuler.Test
 
 
         [Fact]
-        public void Problem136()
+        public static void Problem136()
         {
             //Arrange
             var expected = 2544559;
@@ -124,7 +124,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem137()
+        public static void Problem137()
         {
             //Arrange
             var expected = 1120149658760;
@@ -137,7 +137,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem138()
+        public static void Problem138()
         {
             //Arrange
             var expected = 1118049290473932;
@@ -150,7 +150,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem139()
+        public static void Problem139()
         {
             //Arrange
             var expected = 10057761;
@@ -162,7 +162,7 @@ namespace ProjectEuler.Test
 
         }
         [Fact]
-        public void Problem140()
+        public static void Problem140()
         {
             //Arrange
             var expected = 5673835352990;
@@ -174,7 +174,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem141()
+        public static void Problem141()
         {
             //Arrange
             var expected = 878454337159;
@@ -186,7 +186,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem142()
+        public static void Problem142()
         {
             //Arrange
             var expected = 1006193;
@@ -198,7 +198,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem143()
+        public static void Problem143()
         {
             //Arrange
             var expected = 30758397;
@@ -210,7 +210,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem144()
+        public static void Problem144()
         {
             //Arrange
             var expected = 354;
@@ -222,7 +222,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem145()
+        public static void Problem145()
         {
             //Arrange
             var expected = 608720;
@@ -234,7 +234,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem146()
+        public static void Problem146()
         {
             //Arrange
             var expected = 676333270;
@@ -246,7 +246,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem147()
+        public static void Problem147()
         {
             //Arrange
             var expected = 846910284;
@@ -258,7 +258,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem148()
+        public static void Problem148()
         {
             //Arrange
             var expected = 2129970655314432;
@@ -270,7 +270,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem149()
+        public static void Problem149()
         {
             //Arrange
             var expected = 52852124;
@@ -282,7 +282,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem150()
+        public static void Problem150()
         {
             //Arrange
             var expected = -271248680;
@@ -294,7 +294,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem151()
+        public static void Problem151()
         {
             //Arrange
             var expected = 0.464399;
@@ -307,7 +307,7 @@ namespace ProjectEuler.Test
 
 
         [Fact]
-        public void Problem153()
+        public static void Problem153()
         {
             //Arrange
             var expected = 17971254122360635;
@@ -319,7 +319,7 @@ namespace ProjectEuler.Test
         }
 
          [Fact]
-        public void Problem205()
+        public static void Problem205()
         {
             //Arrange
             var expected = 0.5731441;
@@ -331,7 +331,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem206()
+        public static void Problem206()
         {
             //Arrange
             var expected = 1389019170;
@@ -343,7 +343,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem301()
+        public static void Problem301()
         {
             //Arrange
             var expected = 2178309;
@@ -355,7 +355,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem315()
+        public static void Problem315()
         {
             //Arrange
             var expected = 13625242;
@@ -368,7 +368,7 @@ namespace ProjectEuler.Test
 
 
         [Fact]
-        public void Problem323()
+        public static void Problem323()
         {
             //Arrange
             var expected = 6.3551758451;
@@ -380,7 +380,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem345()
+        public static void Problem345()
         {
             //Arrange
             var expected = 13938;
@@ -392,7 +392,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem346()
+        public static void Problem346()
         {
             //Arrange
             var expected = 336108797689259276;
@@ -404,7 +404,7 @@ namespace ProjectEuler.Test
         }
                 
          [Fact]
-        public void Problem347()
+        public static void Problem347()
         {
             //Arrange
             var expected = 11109800204052;
@@ -416,7 +416,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem357()
+        public static void Problem357()
         {
             //Arrange
             var expected = 1739023853137;
@@ -428,7 +428,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem387()
+        public static void Problem387()
         {
             //Arrange
             var expected = 696067597313468;
@@ -441,7 +441,7 @@ namespace ProjectEuler.Test
 
         
         [Fact]
-        public void Problem381()
+        public static void Problem381()
         {
             //Arrange
             var expected = 139602943319822;
@@ -453,7 +453,19 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem493()
+        public static void Problem407()
+        {
+            //Arrange
+            var expected = 39782849136421;
+
+            //Act
+            var actual = ProjectEuler.Problem407.Solution();
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public static void Problem493()
         {
             //Arrange
             var expected = 6.818741802;
@@ -465,7 +477,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem500()
+        public static void Problem500()
         {
             //Arrange
             var expected = 35407281;
@@ -477,7 +489,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem504()
+        public static void Problem504()
         {
             //Arrange
             var expected = 694687;
@@ -489,7 +501,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem549()
+        public static void Problem549()
         {
             //Arrange
             var expected = 476001479068717;
@@ -501,7 +513,7 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
-        public void Problem622()
+        public static void Problem622()
         {
             //Arrange
             var expected = 3010983666182123972;

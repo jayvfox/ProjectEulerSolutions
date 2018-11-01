@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
+using ProjectEuler.HelperClasses;
 
 
 namespace ProjectEuler
 {
     public class Problem387
     {
-        public static long limit = UtilityFunctions.IntegralPower(10,14);
+        public static long limit = NumberTheory.IntegralPower(10,14);
         public static long Solution()
         {
             long solution = 0;
@@ -20,7 +19,7 @@ namespace ProjectEuler
                 foreach (var i in new[] { 1, 3, 7, 9 })
                 {
                     var n = 10 * s + i;
-                    if (UtilityFunctions.IsPrime(n))
+                    if (PrimeTools.IsPrime(n))
                     {
                         solution += n;
                     }
@@ -41,7 +40,7 @@ namespace ProjectEuler
             var digitSum = UtilityFunctions.DigitSum(n);
             if (n % digitSum != 0)
                 return false;
-            if (!UtilityFunctions.IsPrime(n / digitSum))
+            if (!PrimeTools.IsPrime(n / digitSum))
                 return false;
             return true;
         }

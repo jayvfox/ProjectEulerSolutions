@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using ProjectEuler.HelperClasses;
 
 namespace ProjectEuler
 {
@@ -13,7 +14,7 @@ namespace ProjectEuler
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            Console.WriteLine(Problem323.Solution());
+            Console.WriteLine(Problem429.Solution());
             stopwatch.Stop();
             Console.WriteLine($"Solution took {stopwatch.ElapsedMilliseconds} milliseconds.");
             //Console.ReadKey();
@@ -28,19 +29,19 @@ namespace ProjectEuler
             {
                 var limit = 100000000;
                 stopwatch.Start();
-                var primes3 = UtilityFunctions.Primes(limit);
+                var primes3 = PrimeTools.Primes(limit);
                 stopwatch.Stop();
                 Console.WriteLine($"Primes3 took {stopwatch.ElapsedMilliseconds} milliseconds to run.");
                 stopwatch.Reset();
 
                 stopwatch.Start();
-                var primes2 = UtilityFunctions.Primes(limit);
+                var primes2 = PrimeTools.Primes(limit);
                 stopwatch.Stop();
                 Console.WriteLine($"Primes2 took {stopwatch.ElapsedMilliseconds} milliseconds to run.");
                 stopwatch.Reset();
 
                 stopwatch.Start();
-                var primes1 = UtilityFunctions.Primes(limit);
+                var primes1 = PrimeTools.Primes(limit);
                 stopwatch.Stop();
                 Console.WriteLine($"Primes1 took {stopwatch.ElapsedMilliseconds} milliseconds to run.");
                 stopwatch.Reset();

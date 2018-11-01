@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using MathNet.Numerics.LinearAlgebra;
-
+using ProjectEuler.HelperClasses;
 
 namespace ProjectEuler
 {
@@ -54,8 +51,8 @@ namespace ProjectEuler
                 randoms[k - 1] = new double[k];
                 for (int j = 1; j <= k; j++)
                 {
-                    t = (615949 * t + 797807) % UtilityFunctions.IntegralPower(2, 20);
-                    randoms[k - 1][j - 1] = t - UtilityFunctions.IntegralPower(2, 19);
+                    t = (615949 * t + 797807) % NumberTheory.IntegralPower(2, 20);
+                    randoms[k - 1][j - 1] = t - NumberTheory.IntegralPower(2, 19);
                 }
             }
 

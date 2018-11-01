@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using ProjectEuler.HelperClasses;
 
 namespace ProjectEuler
 {
@@ -17,17 +17,17 @@ namespace ProjectEuler
                 if ((i % 2) == 0)
                 {
                     var k = i / 2;
-                    solution += UtilityFunctions.IntegralPower(30, k - 1) * 20;
+                    solution += NumberTheory.IntegralPower(30, k - 1) * 20;
                 }
               // else if(i%4 == 1)
               // {
               //     var k = (i - 1) / 4;
-              //     solution += UtilityFunctions.IntegralPower(600, k) * 5;
+              //     solution += NumberTheory.IntegralPower(600, k) * 5;
               // }
                 else if (i % 4 == 3)
                 {
                     var k = (i + 1) / 4;
-                    solution += UtilityFunctions.IntegralPower(500, k - 1) * 100;
+                    solution += NumberTheory.IntegralPower(500, k - 1) * 100;
                 }
 
             }

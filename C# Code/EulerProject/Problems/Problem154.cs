@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+using ProjectEuler.HelperClasses;
 
 namespace ProjectEuler
 {
@@ -18,14 +16,14 @@ namespace ProjectEuler
                 for (long b = (long)Math.Ceiling((limit-a)/2.0); b <= a; b++)
                 {
                     var c = limit - a - b;
-                    var powerOfFive = UtilityFunctions.LargestPowerDividingFactorial(limit, 5) 
-                        - UtilityFunctions.LargestPowerDividingFactorial(a, 5) 
-                        - UtilityFunctions.LargestPowerDividingFactorial(b, 5) 
-                        - UtilityFunctions.LargestPowerDividingFactorial(c, 5);
-                    var powerOfTwo = UtilityFunctions.LargestPowerDividingFactorial(limit, 2)
-                       - UtilityFunctions.LargestPowerDividingFactorial(a, 2)
-                       - UtilityFunctions.LargestPowerDividingFactorial(b, 2)
-                       - UtilityFunctions.LargestPowerDividingFactorial(c, 2);
+                    var powerOfFive = NumberTheory.LargestPowerDividingFactorial(limit, 5) 
+                        - NumberTheory.LargestPowerDividingFactorial(a, 5) 
+                        - NumberTheory.LargestPowerDividingFactorial(b, 5) 
+                        - NumberTheory.LargestPowerDividingFactorial(c, 5);
+                    var powerOfTwo = NumberTheory.LargestPowerDividingFactorial(limit, 2)
+                       - NumberTheory.LargestPowerDividingFactorial(a, 2)
+                       - NumberTheory.LargestPowerDividingFactorial(b, 2)
+                       - NumberTheory.LargestPowerDividingFactorial(c, 2);
 
                     if (powerOfFive >=12 && powerOfTwo >= 12)
                     {

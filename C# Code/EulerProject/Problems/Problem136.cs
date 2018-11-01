@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using ProjectEuler.HelperClasses;
 
 
 namespace ProjectEuler
@@ -14,7 +12,7 @@ namespace ProjectEuler
         public static long Solution()
         {
             var exactlyOneSolution = 0;
-            var primes = UtilityFunctions.Primes(limit);
+            var primes = PrimeTools.Primes(limit);
             var index = 0;
             var prime = primes[++index];
 

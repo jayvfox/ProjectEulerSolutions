@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using ProjectEuler.HelperClasses;
 
 namespace ProjectEuler
 {
@@ -10,16 +10,13 @@ namespace ProjectEuler
         public static List<long>[] PrimeCandidates;
 
         public static double Solution()
-        {
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-                        
+        {                        
             var subsetCount = (long)Math.Pow(2, ProblemDigits.Count);
             PrimeCandidates = new List<long>[subsetCount];
             for (int i = 0; i < subsetCount; i++)
                 PrimeCandidates[i] = new List<long>();
 
-            var primes = UtilityFunctions.Primes(98765432);
+            var primes = PrimeTools.Primes(98765432);
 
             foreach (var p in primes)
             {
@@ -39,12 +36,12 @@ namespace ProjectEuler
             long count = 0;
             digits.Sort();
             var maxElement = digits[digits.Count - 1];
-            var restOfDigits = UtilityFunctions.Complement(new List<long> { maxElement }, digits);
-            var subsets = UtilityFunctions.GenerateSubsets(restOfDigits);
+            var restOfDigits = Combinatorics.Complement(new List<long> { maxElement }, digits);
+            var subsets = Combinatorics.GenerateSubsets(restOfDigits);
             foreach (var subset in subsets)
             {
                 subset.Add(maxElement);
-                var complement = UtilityFunctions.Complement(subset, digits);
+                var complement = Combinatorics.Complement(subset, digits);
                 var subsetDigitSignature = UtilityFunctions.DigitSignature(subset, ProblemDigits);
                 count += PrimeCandidates[subsetDigitSignature].Count * PandigitalPrimeSets(complement);
             }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-
+using ProjectEuler.HelperClasses;
 
 namespace ProjectEuler
 {
@@ -16,7 +15,7 @@ namespace ProjectEuler
         public static long Solution()
         {
             long solution = 3;
-            var primes = new HashSet<long>(UtilityFunctions.Primes(limit));
+            var primes = new HashSet<long>(PrimeTools.Primes(limit));
             var eligibleN = new HashSet<long>();
 
             foreach (var p in primes)

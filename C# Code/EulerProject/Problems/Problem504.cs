@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using ProjectEuler.HelperClasses;
 
 
 namespace ProjectEuler
@@ -22,11 +20,11 @@ namespace ProjectEuler
                         {
                             var internalPoints =
                                 ((a + c) * (b + d)
-                                - UtilityFunctions.Gcd(a, b)
-                                - UtilityFunctions.Gcd(b, c)
-                                - UtilityFunctions.Gcd(c, d)
-                                - UtilityFunctions.Gcd(d, a)) / 2 + 1;
-                            if (UtilityFunctions.IsPerfectSquare(internalPoints))
+                                - NumberTheory.Gcd(a, b)
+                                - NumberTheory.Gcd(b, c)
+                                - NumberTheory.Gcd(c, d)
+                                - NumberTheory.Gcd(d, a)) / 2 + 1;
+                            if (NumberTheory.IsPerfectSquare(internalPoints))
                             {
                                 solution += 4;
                                 if (a==c || b==d)

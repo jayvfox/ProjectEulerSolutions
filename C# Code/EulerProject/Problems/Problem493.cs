@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using ProjectEuler.HelperClasses;
 
 
 namespace ProjectEuler
@@ -13,7 +12,7 @@ namespace ProjectEuler
         public static long limit = 20;
         public static double Solution()
         {
-            var solution = 7 * (1 - UtilityFunctions.Choose(60, 20) / (double)UtilityFunctions.Choose(70, 20));
+            var solution = 7 * (1 - Combinatorics.Choose(60, 20) / (double)Combinatorics.Choose(70, 20));
             return Math.Round(solution, 9);
             //return ExpectedBalls(0,0);
         }

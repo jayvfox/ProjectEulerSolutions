@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿using ProjectEuler.HelperClasses;
 
 namespace ProjectEuler
 {
     public class Problem
     {
-        public static long limit = 100;
+        public static long limit = NumberTheory.IntegralPower(10,2);
         public static long Solution()
         {
             long solution = 0;

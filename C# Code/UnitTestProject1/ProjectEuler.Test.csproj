@@ -69,6 +69,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HelperFuncions\CombinatoricsTest.cs" />
+    <Compile Include="HelperFuncions\AlgebraTest.cs" />
+    <Compile Include="HelperFuncions\NumberTheoryTest.cs" />
+    <Compile Include="HelperFuncions\PrimeToolsTest.cs" />
     <Compile Include="SolvedProblemTests.cs" />
     <Compile Include="UnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

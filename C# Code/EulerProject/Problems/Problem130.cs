@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Collections.Generic;
-
+using ProjectEuler.HelperClasses;
 
 namespace ProjectEuler
 {
@@ -21,8 +20,8 @@ namespace ProjectEuler
             var solutions = new List<long>();
             for (int i = 7; count < limit; i++ )
             {
-                var order = UtilityFunctions.MultiplicativeOrder(10, 9 * i);
-                if ( order > 0 && (i-1) % order == 0 && !UtilityFunctions.IsPrime(i))
+                var order = NumberTheory.MultiplicativeOrder(10, 9 * i);
+                if ( order > 0 && (i-1) % order == 0 && !PrimeTools.IsPrime(i))
                 {
                     count += 1;
                     solution += i;

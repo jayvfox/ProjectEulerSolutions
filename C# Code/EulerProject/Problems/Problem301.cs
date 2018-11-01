@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ProjectEuler.HelperClasses;
 
 
 namespace ProjectEuler
@@ -17,7 +18,7 @@ namespace ProjectEuler
             long solution = 0;
 
             for (int i = 0; i <= limit; i++)
-                solution += UtilityFunctions.Choose(limit - i + 1, i);
+                solution += Combinatorics.Choose(limit - i + 1, i);
             return solution;
         }
     }

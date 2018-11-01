@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+using ProjectEuler.HelperClasses;
 
 namespace ProjectEuler
 {
@@ -12,7 +10,7 @@ namespace ProjectEuler
         {
             long solution = 0;
 
-            var primes = UtilityFunctions.Primes(limit+100);
+            var primes = PrimeTools.Primes(limit+100);
 
             for (int i=3; true; i++)
             {
@@ -22,7 +20,7 @@ namespace ProjectEuler
                 if (p1 > limit)
                     break;
                 long powerOf10 = (long)Math.Pow(10, p1.ToString().Length);
-                var x = (-p1 * UtilityFunctions.ModularInverse(powerOf10, p2) % p2 + p2) % p2;
+                var x = (-p1 * NumberTheory.ModularInverse(powerOf10, p2) % p2 + p2) % p2;
                 solution += powerOf10*x + p1;
             }
 

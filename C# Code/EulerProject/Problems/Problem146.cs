@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-
+using ProjectEuler.HelperClasses;
 
 namespace ProjectEuler
 {
@@ -12,7 +11,7 @@ namespace ProjectEuler
         public static long Solution()
         {
             long solution = 0;
-            var primes = UtilityFunctions.Primes(8000);
+            var primes = PrimeTools.Primes(8000);
             var residues = new List<long> { 1, 3, 7, 9, 13, 27 };
             for (long num = 10; num < limit; num += 10)
             {
@@ -39,14 +38,14 @@ namespace ProjectEuler
                 if (skipNum)
                     continue;
                 var nSquared = num * num;
-                if (UtilityFunctions.IsPrime(nSquared + 1)
-                    && UtilityFunctions.IsPrime(nSquared + 3)
-                    && UtilityFunctions.IsPrime(nSquared + 7)
-                    && UtilityFunctions.IsPrime(nSquared + 9)
-                    && UtilityFunctions.IsPrime(nSquared + 13)
-                    && UtilityFunctions.IsPrime(nSquared + 27)
-                    && !UtilityFunctions.IsPrime(nSquared + 19)
-                    && !UtilityFunctions.IsPrime(nSquared + 21))
+                if (PrimeTools.IsPrime(nSquared + 1)
+                    && PrimeTools.IsPrime(nSquared + 3)
+                    && PrimeTools.IsPrime(nSquared + 7)
+                    && PrimeTools.IsPrime(nSquared + 9)
+                    && PrimeTools.IsPrime(nSquared + 13)
+                    && PrimeTools.IsPrime(nSquared + 27)
+                    && !PrimeTools.IsPrime(nSquared + 19)
+                    && !PrimeTools.IsPrime(nSquared + 21))
                 {
                     solution += num;
                     Console.WriteLine(num);

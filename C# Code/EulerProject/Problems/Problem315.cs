@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ProjectEuler.HelperClasses;
 
 
 namespace ProjectEuler
@@ -28,7 +29,7 @@ namespace ProjectEuler
         {
             long solution = 0;
 
-            var primes = UtilityFunctions.Primes(upperLimit).Where(p => p>=lowerLimit);
+            var primes = PrimeTools.Primes(upperLimit).Where(p => p>=lowerLimit);
             
             foreach (var p in primes)
             {
