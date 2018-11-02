@@ -39,6 +39,33 @@ namespace ProjectEuler.HelperClasses
         }
 
         /// <summary>
+        /// Returns a sieve such that sieve[n] = false iff 2n+3 is prime. 
+        /// </summary>
+        /// <param name="upperLimit">The upper bound for primes (inclusive).</param>
+        /// <returns></returns>
+        public static PrimeSieve PrimeSieve(long upperLimit)
+        {
+            var half = (upperLimit - 1) / 2;
+            bool[] nums = new bool[half];
+            var limit = 3037000499; //(int)Math.Sqrt(long.MaxValue);
+            for (long i = 0; i < half; i++)
+            {
+                if (!nums[i])
+                {
+                    var number = i * 2 + 3;
+                    if (number <= limit)
+                    {
+                        for (var j = ((number * number) / 2) - 1; j < half; j += number)
+                        {
+                            nums[j] = true;
+                        }
+                    }
+                }
+            }
+            return new PrimeSieve(nums);
+        }
+
+        /// <summary>
         /// Tests whether an integer is prime. 
         /// </summary>
         /// <param name="n">The number to check for primality.</param>
@@ -177,6 +204,26 @@ namespace ProjectEuler.HelperClasses
                 r--;
             }
             return false;
+        }
+    }
+
+    public class PrimeSieve
+    {
+        private bool[] _PrimeSieve;
+
+        public bool this[long i]
+        {
+            get
+            {
+                if (i == 2) return true;
+                if (i % 2 == 0) return false;
+                return !_PrimeSieve[(i - 3) / 2];
+            }
+        }
+
+        internal PrimeSieve(bool[] array)
+        {
+            _PrimeSieve = array;
         }
     }
 }
