@@ -18,24 +18,39 @@ namespace ProjectEuler
             long solution = 0;
             long p = 1;
             var squareRootOfLimit = (long)Math.Sqrt(limit);
+            
             while (p <= limit)
             {
                 long q = 1;
                 while (q <= limit / p)
                 {
+                    var pTimesQ = p * q;
                     long r = 1;
                     while (r <= limit / (p * q))
                     {
-                        var ham = p * q * r;
+                        var ham = pTimesQ * r;
                         var hamPrime = ham + 1;
                         solution = (solution + ham) % modBase;
-                        hammingNumbers.Add(ham);
+                        if (ham <= limit / 7)
+                            hammingNumbers.Add(ham);
 
                         if (ham <= squareRootOfLimit)
                         {
                             smallHammingNumbers.Add(ham);
                             if (PrimeTools.IsPrime(hamPrime))
+                            {
                                 smallHammingPrimes.Add(hamPrime);
+                                if (hamPrime > 6)
+                                {
+                                    var currentEligibleDivisors = eligibleDivisors.ToArray();
+                                    foreach (var divisor in currentEligibleDivisors)
+                                    {
+                                        long newNumber = divisor * hamPrime;
+                                        if (newNumber <= limit)
+                                            eligibleDivisors.Add(newNumber);
+                                    }
+                                }
+                            }
                         }
                         else
                         {
@@ -48,28 +63,17 @@ namespace ProjectEuler
                 }
                 p *= 2;
             }
-
-            foreach (var hamPrime in smallHammingPrimes)
-            {
-                if (hamPrime < 6)
-                    continue;
-                var currentEligibleDivisors = eligibleDivisors.ToArray();
-                foreach (var divisor in currentEligibleDivisors)
-                {
-                    long newNumber = divisor * hamPrime;
-                    if (newNumber <= limit)
-                        eligibleDivisors.Add(newNumber);
-                }
-            }
-
+            
             eligibleDivisors.Remove(1);
             eligibleDivisors.Sort();
-            smallHammingNumbers.Sort();
+            largeHammingPrimes.Sort();
 
+            var divisorsSansLargePrimes = eligibleDivisors.ToArray();
             foreach (var largePrime in largeHammingPrimes)
             {
-                var currentEligibleDivisors = eligibleDivisors.ToArray();
-                foreach (var divisor in currentEligibleDivisors)
+                if (largePrime > limit / eligibleDivisors[0])
+                    break;
+                foreach (var divisor in divisorsSansLargePrimes)
                 {
                     var newNumber = divisor * largePrime;
                     if (newNumber > limit)
@@ -77,7 +81,7 @@ namespace ProjectEuler
                     eligibleDivisors.Add(newNumber);
                 }
             }
-
+            
             eligibleDivisors.Sort();
 
             foreach (var ham in hammingNumbers)
@@ -90,10 +94,10 @@ namespace ProjectEuler
                     solution = (solution + newNumber) % modBase;
                 }
             }
-
-            foreach (var hp in largeHammingPrimes)
+            
+            foreach (var h in smallHammingNumbers) 
             {
-                foreach(var h in smallHammingNumbers)
+                foreach (var hp in largeHammingPrimes)
                 {
                     long newNumber = hp * h;
                     if (newNumber > limit)
@@ -101,7 +105,6 @@ namespace ProjectEuler
                     solution = (solution + newNumber) % modBase;
                 }
             }
-
 
             return solution;
         }
