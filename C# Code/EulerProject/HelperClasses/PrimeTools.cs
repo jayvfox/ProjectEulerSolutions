@@ -215,6 +215,7 @@ namespace ProjectEuler.HelperClasses
         {
             get
             {
+                if (i < 2) return false;
                 if (i == 2) return true;
                 if (i % 2 == 0) return false;
                 return !_PrimeSieve[(i - 3) / 2];

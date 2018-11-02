@@ -14,7 +14,7 @@ namespace ProjectEuler
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            Console.WriteLine(Problem516.Solution());
+            Console.WriteLine(Problem518.Solution());
             stopwatch.Stop();
             Console.WriteLine($"Solution took {stopwatch.ElapsedMilliseconds} milliseconds.");
             //Console.ReadKey();
@@ -22,7 +22,7 @@ namespace ProjectEuler
 
         static void TimeStuff()
         {
-
+            var primesSieve = PrimeTools.PrimeSieve(100);
             
             var stopwatch = new Stopwatch();
             while (true)
