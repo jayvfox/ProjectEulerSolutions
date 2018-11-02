@@ -513,6 +513,18 @@ namespace ProjectEuler.Test
         }
 
         [Fact]
+        public static void Problem516()
+        {
+            //Arrange
+            var expected = 939087315;
+
+            //Act
+            var actual = ProjectEuler.Problem516.Solution();
+            //Assert
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
         public static void Problem549()
         {
             //Arrange
